@@ -7,7 +7,8 @@ public class DBManager {
 	Statement statement;
 	
 	public DBManager() throws ClassNotFoundException, SQLException{
-		 Connection conn = DriverManager.getConnection("jdbc:sqlite:mono.db"); 
+		Class.forName("org.sqlite.JDBC");
+		 Connection conn = DriverManager.getConnection("jdbc:sqlite:src/mono.db"); 
 		 this.statement = conn.createStatement();
 	}
 	
