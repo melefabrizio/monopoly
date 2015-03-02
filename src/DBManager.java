@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.Vector;
 
 /**
@@ -27,9 +28,9 @@ public class DBManager {
 	 * @return Vector di Caselle
 	 * @throws SQLException
 	 */
-	public Vector<Casella> getCaselle() throws SQLException{
+	public LinkedList<Casella> getCaselle() throws SQLException{
 		
-		Vector<Casella> caselle = new Vector<Casella>();
+		LinkedList<Casella> caselle = new LinkedList<Casella>();
 		ResultSet rs = statement.executeQuery("select * from caselle");
 		while(rs.next()){
 			caselle.add(new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo")));
