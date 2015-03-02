@@ -35,6 +35,7 @@ public class DBManager {
 			caselle.add(new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo")));
 			
 		}
+		rs.close();
 		return caselle;
 	}
 }

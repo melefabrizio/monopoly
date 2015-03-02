@@ -7,6 +7,10 @@ public class Monopoly {
 
 		DBManager db = new DBManager();
 		
+		Integer[] ints = Util.lanciaDadi(3,6);
+		System.out.println(ints[0]);
+		System.out.println(ints[1]);
+
 		
 	}
 
