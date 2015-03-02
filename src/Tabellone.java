@@ -1,12 +1,15 @@
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Vector;
 
+import com.google.common.collect.Iterators;
+
 
 public class Tabellone {
 	
-	public static final int VIA = 10;
+	public static final int VIA = 0;
 	public static final int PRIGIONE = 10;
 
 	private LinkedList<Casella> caselle;
@@ -25,7 +28,7 @@ public class Tabellone {
 		
 		int posCorrente = g.getNumeroCasella();
 		int newPos = posCorrente+avanzamento;
-		ListIterator<Casella> iterator = (ListIterator<Casella>) caselle.iterator();
+		Iterator<Casella> iterator = caselle.iterator();
 		while(iterator.hasNext()){
 			Casella casella = iterator.next();
 			if(casella.staziona(g)){
@@ -47,7 +50,7 @@ public class Tabellone {
 	protected void sposta(Giocatore g, int newCasella){
 		
 		g.setNumeroCasella(newCasella);
-		ListIterator<Casella> iterator = (ListIterator<Casella>) caselle.iterator();
+		Iterator<Casella> iterator = Iterators.cycle(caselle);
 		while(iterator.hasNext()){
 			Casella casella = iterator.next();
 			if(casella.staziona(g)){
@@ -63,9 +66,9 @@ public class Tabellone {
 		
 	}
 	public Casella getCasella(Giocatore g){
-		ListIterator<Casella> iterator = (ListIterator<Casella>) caselle.iterator();
-		while(iterator.hasNext()){
-			Casella casella = iterator.next();
+		
+		for(Casella casella:caselle){
+			
 			if(casella.staziona(g)){
 				return casella;
 				
@@ -74,7 +77,7 @@ public class Tabellone {
 			
 			
 		}
-		return iterator.next();
+		return caselle.getFirst();
 	}
 
 }

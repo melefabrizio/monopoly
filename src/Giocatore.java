@@ -6,17 +6,17 @@ public class Giocatore {
 	private int numeroCasella;
 	
 	
-	public Giocatore(String nome,int numeroCasella){
+	public Giocatore(String nome){
 		
 			this.nome=nome;
-			this.numeroCasella=numeroCasella;
+			this.numeroCasella=0;
 	}
 	
 	public Integer[] lanciaDadi(){
 		
 		Integer[] dadiEstratti=new Integer[2];
 
-		Util.lanciaDadi(2, 6);
+		dadiEstratti = Util.lanciaDadi(2, 6);
 		
 		return dadiEstratti;
 	}

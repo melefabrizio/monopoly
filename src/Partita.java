@@ -1,33 +1,35 @@
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Vector;
+
+import com.google.common.collect.Iterators;
 
 
 public class Partita {
 	private DBManager db;
-	private LinkedList<Giocatore> giocatori;
+	private Vector<Giocatore> giocatori;
 	private Tabellone tabellone;
-	private ListIterator<Giocatore> iterator;
+	private Iterator<Giocatore> iterator;
 	
-	public Partita( DBManager db, LinkedList<Giocatore> giocatori) throws SQLException{
+	public Partita( DBManager db, Vector<Giocatore> giocatori) throws SQLException{
 		this.db = db;
 		this.giocatori = giocatori;
 		tabellone = new Tabellone(db);
-		iterator = (ListIterator<Giocatore>) giocatori.iterator();
+		iterator = Iterators.cycle(this.giocatori);
 		
-		ListIterator<Giocatore> iterator2 = (ListIterator<Giocatore>) giocatori.iterator();
-		while(iterator2.hasNext()){
-			tabellone.sposta(iterator2.next(), Tabellone.VIA);
-		}
 	}
 	
 	public void turno(){
+		
+		
 
 		int avanzamento = 0;
 		int ripetizione = 0;
 		boolean ritira=false;
 		Giocatore gCorrente = iterator.next();
-		System.out.println("Tocca al giocatore"+gCorrente.getNome());
+		System.out.println("Tocca al giocatore "+gCorrente.getNome());
 		System.out.println("Parte dalla casella "+
 				tabellone.getCasella(gCorrente).getNome());
 		
@@ -35,9 +37,10 @@ public class Partita {
 		do{
 			Integer[] dadi = gCorrente.lanciaDadi();
 		
-			for(int i=0; i<dadi.length; i++){
-				avanzamento += dadi[i];
-			}
+			
+			avanzamento += dadi[0];
+			avanzamento += dadi[1];
+			
 			System.out.println(gCorrente.getNome()+" lancia "+avanzamento);
 			tabellone.avanza(gCorrente, avanzamento);
 			System.out.println("Arriva alla casella "+
@@ -45,6 +48,7 @@ public class Partita {
 			if(dadi[0]==dadi[1]){
 				ritira = true;
 				ripetizione++;
+				avanzamento = 0;
 			}
 			if(ripetizione == 3){
 				tabellone.sposta(gCorrente, Tabellone.PRIGIONE);
