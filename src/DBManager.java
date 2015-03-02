@@ -1,17 +1,32 @@
 import java.sql.*;
 import java.util.Vector;
 
-
+/**
+ * DB Manager
+ * Wrapper per SQLite
+ * 
+ * 
+ * @author Fabrizio Mele
+ *
+ */
 public class DBManager {
 	
 	Statement statement;
-	
+	/**
+	 * Costruttore di DBManager, inizializza la connessione al database
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public DBManager() throws ClassNotFoundException, SQLException{
 		Class.forName("org.sqlite.JDBC");
 		 Connection conn = DriverManager.getConnection("jdbc:sqlite:src/mono.db"); 
 		 this.statement = conn.createStatement();
 	}
-	
+	/**
+	 * Ritorna un vector di caselle facendo il parsing della tabella "caselle" nel database
+	 * @return Vector di Caselle
+	 * @throws SQLException
+	 */
 	public Vector<Casella> getCaselle() throws SQLException{
 		
 		Vector<Casella> caselle = new Vector<Casella>();
