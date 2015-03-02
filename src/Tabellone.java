@@ -6,6 +6,9 @@ import java.util.Vector;
 
 public class Tabellone {
 	
+	public static final int VIA = 10;
+	public static final int PRIGIONE = 10;
+
 	private LinkedList<Casella> caselle;
 	private DBManager db;
 	/**
@@ -39,6 +42,39 @@ public class Tabellone {
 		g.setNumeroCasella(newPos);
 		
 		
+	}
+	
+	protected void sposta(Giocatore g, int newCasella){
+		
+		g.setNumeroCasella(newCasella);
+		ListIterator<Casella> iterator = (ListIterator<Casella>) caselle.iterator();
+		while(iterator.hasNext()){
+			Casella casella = iterator.next();
+			if(casella.staziona(g)){
+				casella.rimuovi(g);
+				
+				
+			}
+			if(casella.getId()==newCasella){
+				casella.inserisci(g);
+			}
+			
+		}
+		
+	}
+	public Casella getCasella(Giocatore g){
+		ListIterator<Casella> iterator = (ListIterator<Casella>) caselle.iterator();
+		while(iterator.hasNext()){
+			Casella casella = iterator.next();
+			if(casella.staziona(g)){
+				return casella;
+				
+				
+			}
+			
+			
+		}
+		return iterator.next();
 	}
 
 }

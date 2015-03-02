@@ -12,7 +12,7 @@ public class Giocatore {
 			this.numeroCasella=numeroCasella;
 	}
 	
-	public Integer[] lanciaDadi(int numeroDadi){
+	public Integer[] lanciaDadi(){
 		
 		Integer[] dadiEstratti=new Integer[2];
 
