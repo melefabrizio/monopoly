@@ -7,12 +7,30 @@ import java.util.Vector;
 import com.google.common.collect.Iterators;
 
 
+/**
+ * La classe che rappresenta una Partita.
+ */
 public class Partita {
+	
+	/** Il Database */
 	private DBManager db;
+	
+	/** Il vector di giocatori. */
 	private Vector<Giocatore> giocatori;
+	
+	/** Il tabellone. */
 	private Tabellone tabellone;
+	
+	/** L'iterator dei giocatori. */
 	private Iterator<Giocatore> iterator;
 	
+	/**
+	 * Costruttore di partita.
+	 *
+	 * @param db il database
+	 * @param giocatori i giocatori
+	 * @throws SQLException l'eccezione SQL lanciata
+	 */
 	public Partita( DBManager db, Vector<Giocatore> giocatori) throws SQLException{
 		this.db = db;
 		this.giocatori = giocatori;
@@ -21,6 +39,13 @@ public class Partita {
 		
 	}
 	
+	/**
+	 * Il metodo turno, che rappresenta il turno di un giocatore.
+	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantità corrispondente.
+	 * Controlla se i dadi sono uguali, e in caso di risposta affermativa fa rilanciare i dadi.
+	 * Se si tirano dadi doppi per tre volte il metodo sposta il giocatore in prigione.
+	 * 
+	 */
 	public void turno(){
 		
 		

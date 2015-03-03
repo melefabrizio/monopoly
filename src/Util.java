@@ -1,10 +1,22 @@
+
 import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
 
 
+
+/**
+ * La classe Util.
+ */
 public class Util {
 	
+	/**
+	 * Metodo che lancia i dadi
+	 *
+	 * @param n il numero di dadi
+	 * @param f il numero di facce
+	 * @return integer[] il vettore di interi che contiene i risultati del lancio
+	 */
 	public static Integer[] lanciaDadi(int n, int f){
 		
 		Vector<Integer> dadi = new Vector<Integer>();

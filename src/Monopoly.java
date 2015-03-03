@@ -1,3 +1,16 @@
+/**
+ * <p>Title: Monopoly</p>
+ *
+ * <p>Description: Applicazione software che consente di giocare a Monopoly</p>
+ *
+ * <p>Copyright: Copyright (c) 2015 D. Falleti, F. Mele, F. Cordioli</p>
+ *
+ * <p>Company: UNIBS</p>
+ *
+ * @author F. Mele, D. Falleti, F. Cordioli
+ * @version 1.0
+ */
+
 import java.sql.SQLException;
 import java.util.*;
 
