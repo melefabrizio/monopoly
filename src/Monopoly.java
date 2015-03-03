@@ -21,18 +21,19 @@ public class Monopoly {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
 		DBManager db = new DBManager();
-		System.out.println("Inizia");
+		System.out.println("Inizia la Partita!");
+		
 		Vector<Giocatore> players = new Vector<Giocatore>();
 		players.add(new Giocatore("Fab"));
 		players.add(new Giocatore("Dab"));
 		players.add(new Giocatore("Cioppo"));
-		System.out.println(players);
-
+		System.out.println("Giocano: " + players.toString());
+		Collections.shuffle(players);
 		Partita parta = new Partita(db, players);
 		
 		int turno =0;
 		while(turno<20){
-			System.out.println(turno);
+			System.out.printf("Turno %d \n",turno+1);
 			parta.turno();
 			turno +=1;
 			

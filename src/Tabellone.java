@@ -40,27 +40,15 @@ public class Tabellone {
 	 * e lo inserisce nella nuova posizione.
 	 *
 	 * @param g il giocatore
-	 * @param avanzamento quantità di avanzamento del giocatore
+	 * @param avanzamento quantitˆ di avanzamento del giocatore
 	 */
 	protected void avanza(Giocatore g, int avanzamento){
 		
+		
 		int posCorrente = g.getNumeroCasella();
 		int newPos = posCorrente+avanzamento;
-		Iterator<Casella> iterator = caselle.iterator();
-		while(iterator.hasNext()){
-			Casella casella = iterator.next();
-			if(casella.staziona(g)){
-				casella.rimuovi(g);
-				
-				
-			}
-			if(casella.getId()==newPos){
-				casella.inserisci(g);
-			}
-			
-		}
-		
-		g.setNumeroCasella(newPos);
+		newPos = newPos>40?newPos-40:newPos;
+		sposta(g, newPos);
 		
 		
 	}
@@ -73,20 +61,60 @@ public class Tabellone {
 	 */
 	protected void sposta(Giocatore g, int newCasella){
 		
-		g.setNumeroCasella(newCasella);
-		Iterator<Casella> iterator = Iterators.cycle(caselle);
-		while(iterator.hasNext()){
-			Casella casella = iterator.next();
+		boolean rimosso = false;
+		boolean inserito = false;
+		
+		for(Casella casella:this.caselle){
+			
+			
+			
 			if(casella.staziona(g)){
 				casella.rimuovi(g);
 				
-				
 			}
+		}
+		
+		
+		for(Casella casella:this.caselle){			
+			
+
 			if(casella.getId()==newCasella){
 				casella.inserisci(g);
 			}
 			
 		}
+		g.setNumeroCasella(newCasella);
+		
+	}
+	
+	protected void posiziona(Giocatore g, int pos){
+		
+		Iterator<Casella> iterator = this.caselle.iterator();
+		
+		boolean inserito = false;
+		
+		
+		for(Casella casella:this.caselle){
+			
+			
+			
+			if(casella.staziona(g)){
+				casella.rimuovi(g);
+				
+			}
+		}
+		
+		for(Casella casella:this.caselle){
+			
+			casella = iterator.next();
+
+			if(casella.getId()==pos){
+				casella.inserisci(g);
+				
+			}
+			
+		}
+		g.setNumeroCasella(pos);
 		
 	}
 	

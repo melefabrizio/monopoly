@@ -43,7 +43,7 @@ public class Casella {
 	 */
 	public boolean staziona(Giocatore g){
 		for(Giocatore giocatore:giocatori){
-			if(giocatore.equals(g)){
+			if(giocatore.getNome().equals(g.getNome())){
 				return true;
 			}
 		}

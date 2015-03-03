@@ -77,6 +77,10 @@ public class Giocatore {
 		this.numeroCasella = numeroCasella;
 	}
 	
+	public String toString(){
+		return this.nome;
+	}
+	
 	
 
 }

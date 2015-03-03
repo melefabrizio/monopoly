@@ -35,7 +35,10 @@ public class Partita {
 		this.db = db;
 		this.giocatori = giocatori;
 		tabellone = new Tabellone(db);
-		iterator = Iterators.cycle(this.giocatori);
+		iterator = this.giocatori.iterator(); 
+		for(Giocatore giocatore:this.giocatori){
+			tabellone.posiziona(giocatore, 0);
+		}
 		
 	}
 	
@@ -53,7 +56,13 @@ public class Partita {
 		int avanzamento = 0;
 		int ripetizione = 0;
 		boolean ritira=false;
-		Giocatore gCorrente = iterator.next();
+		Giocatore gCorrente;
+		try{
+			gCorrente = iterator.next();
+		}catch (Exception e){
+			this.iterator = this.giocatori.iterator();
+			gCorrente = iterator.next();
+		}
 		System.out.print(gCorrente.getNome()+": ");
 		System.out.print(
 				tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]"+"->");
