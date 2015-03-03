@@ -54,30 +54,33 @@ public class Partita {
 		int ripetizione = 0;
 		boolean ritira=false;
 		Giocatore gCorrente = iterator.next();
-		System.out.println("Tocca al giocatore "+gCorrente.getNome());
-		System.out.println("Parte dalla casella "+
-				tabellone.getCasella(gCorrente).getNome());
+		System.out.print(gCorrente.getNome()+": ");
+		System.out.print(
+				tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]"+"->");
 		
 
 		do{
 			Integer[] dadi = gCorrente.lanciaDadi();
-		
-			
+			ritira = false;
+			avanzamento = 0;
 			avanzamento += dadi[0];
 			avanzamento += dadi[1];
 			
-			System.out.println(gCorrente.getNome()+" lancia "+avanzamento);
+			
 			tabellone.avanza(gCorrente, avanzamento);
-			System.out.println("Arriva alla casella "+
-					tabellone.getCasella(gCorrente).getNome());
+			System.out.print(
+					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]"+"--");
+			System.out.print(+dadi[0]+" "+dadi[1]+"\n");
 			if(dadi[0]==dadi[1]){
 				ritira = true;
 				ripetizione++;
-				avanzamento = 0;
+				
+				System.out.println("Dadi doppi!");
 			}
 			if(ripetizione == 3){
 				tabellone.sposta(gCorrente, Tabellone.PRIGIONE);
 				System.out.println("In prigione!");
+				ritira=false;
 			}
 		}while(ritira);
 	}
