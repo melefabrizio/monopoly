@@ -63,10 +63,7 @@ public class Partita {
 			this.iterator = this.giocatori.iterator();
 			gCorrente = iterator.next();
 		}
-		System.out.print(gCorrente.getNome()+": ");
-		System.out.print(
-				tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]"+"->");
-		
+
 
 		do{
 			Integer[] dadi = gCorrente.lanciaDadi();
@@ -76,10 +73,19 @@ public class Partita {
 			avanzamento += dadi[1];
 			
 			
-			tabellone.avanza(gCorrente, avanzamento);
+			System.out.print(gCorrente.getNome()+" lancia i dadi ed escono:  ");
+			System.out.print(+dadi[0]+" e "+dadi[1]+". ");
+			
+			System.out.print("Si muove da ");
 			System.out.print(
-					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]"+"--");
-			System.out.print(+dadi[0]+" "+dadi[1]+"\n");
+					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]");
+			
+			tabellone.avanza(gCorrente, avanzamento);
+			
+			System.out.print(" a ");
+			System.out.print(
+					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n\n");
+			
 			if(dadi[0]==dadi[1]){
 				ritira = true;
 				ripetizione++;

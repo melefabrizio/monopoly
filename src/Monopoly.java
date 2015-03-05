@@ -23,11 +23,11 @@ public class Monopoly {
 	private final static char SIMBOLO_MESSAGGIO_BENV_USCITA='~';
 	private final static String MSG_BENVENUTO = "BENVENUTO NEL GIOCO DEL MONOPOLY";
 	private final static String MSG_CHIUSURA = "GRAZIE PER AVERE USATO IL PROGRAMMA - ARRIVEDERCI";
-	private final static String MSG_INSERISCI_GIOCATORE = "INSERISCI UN NUOVO GIOCATORE";
+	private final static String MSG_INSERISCI_GIOCATORE = "Inserisci un nuovo giocatore > ";
 	
 	//Menu 
 	
-	final static String [] VOCIMENU={"Inserisci Nuovo Giocatore", "Stampa elenco giocatori", "Gioca", "Esci"};
+	final static String [] VOCIMENU={"Inserisci Nuovo Giocatore", "Stampa elenco giocatori", "Gioca"};
 	final static String TITOLO_MENU = "Menù Monopoly";
 	
 	// vettore di giocatori
@@ -88,7 +88,12 @@ public class Monopoly {
 		
 		private static void inserisciGiocatore(){
 		
-			players.add(new Giocatore(InputDati.leggiStringa(MSG_INSERISCI_GIOCATORE)));
+			if(players.size()>5)
+			{
+				System.out.println("Raggiunto il numero massimo di giocatori\n");
+			}
+			else
+				players.add(new Giocatore(InputDati.leggiStringa(MSG_INSERISCI_GIOCATORE)));
 		}
 		
 		private static void stampaGiocatori(Vector<Giocatore> giocatori){
@@ -104,16 +109,23 @@ public class Monopoly {
 		
 		private static void gioca(DBManager database) throws ClassNotFoundException, SQLException{
 			
-			Collections.shuffle(players);
-			Partita parta = new Partita(database, players);
+			if(players.size()<2)
+			{
+				System.out.printf("Attualmente ci sono %d giocatori.\nCi devono essere almeno 2 giocatori per giocare!\n", players.size());
+			}
+			else {
+				Collections.shuffle(players);
+				Partita parta = new Partita(database, players);
 			
-			int turno =0;
-			while(turno<20){
-				System.out.printf("Turno %d \n",turno+1);
-				parta.turno();
-				turno +=1;
+				int turno =0;
+					while(turno<20){
+						System.out.printf("Turno %d \n",turno+1);
+						parta.turno();
+						turno +=1;
+			}
 				
-		}}
+		}
+	}
 		
 	}
 
