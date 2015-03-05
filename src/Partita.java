@@ -71,7 +71,8 @@ public class Partita {
 			
 			System.out.print(gCorrente.getNome()+" lancia i dadi ed escono:  ");
 			System.out.print(+dadi[0]+" e "+dadi[1]+". ");
-			
+			System.out.print(dadi[0] == dadi[1]?"Dadi doppi!\n":"\n");
+
 			System.out.print("Si muove da ");
 			System.out.print(
 					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]");
@@ -86,7 +87,7 @@ public class Partita {
 				ritira = true;
 				ripetizione++;
 				
-				System.out.println("Dadi doppi!");
+				System.out.println("Ritira!");
 			}
 			if(ripetizione == 3){
 				tabellone.sposta(gCorrente, Tabellone.PRIGIONE);
