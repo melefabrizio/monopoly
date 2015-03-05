@@ -43,6 +43,8 @@ public class Monopoly {
 	
 	/** La costante TITOLO_MENU. */
 	final static String TITOLO_MENU = "Menù Monopoly";
+	/** La costante Numero Turni */
+	private static final int NUMERO_TURNI = 20;
 	
 	
 	/** Il Vector di giocatori. */
@@ -155,13 +157,15 @@ public class Monopoly {
 			{
 				System.out.printf("Attualmente ci sono %d giocatori.\nCi devono essere almeno 2 giocatori per giocare!\n", players.size());
 			}
+			
 			else {
 				Collections.shuffle(players);
 				Partita parta = new Partita(database, players);
 			
 				int turno =0;
-					while(turno<20){
-						System.out.printf("Turno %d \n",turno+1);
+					while(turno<NUMERO_TURNI*players.size()){
+						if(turno%3==0)
+							System.out.printf("Turno %d \n",turno+1);
 						parta.turno();
 						turno +=1;
 			}
