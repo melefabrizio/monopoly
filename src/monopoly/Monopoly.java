@@ -114,11 +114,16 @@ public class Monopoly {
 	 * @throws SQLException
 	 *             l'eccezione SQL
 	 */
-	public static void main(String[] args) throws ClassNotFoundException,
-			SQLException {
-
-		DBManager db = new DBManager();
-
+	public static void main(String[] args)  {
+		DBManager db;
+		db = null;
+		try{
+			 db = new DBManager();
+		}catch (Exception e){
+			System.out.println("Si è verificato un errore nella connessione al Database.");
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
 		int scelta;
 		MyMenu menuMain = new MyMenu(TITOLO_MENU, VOCIMENU);
 		boolean continuaCiclo = true;
@@ -142,8 +147,12 @@ public class Monopoly {
 					gioca(db);
 				}catch (SQLException e){
 					System.out.println("Si è verificato un errore nel Database.");
+					System.out.println(e.getMessage());
+
 				}catch(ClassNotFoundException e){
 					System.out.println("Si è verificato un errore nella libreria SQL.");
+					System.out.println(e.getMessage());
+
 				}
 				break;
 
