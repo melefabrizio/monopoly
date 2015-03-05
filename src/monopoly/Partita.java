@@ -26,8 +26,8 @@ public class Partita {
 	/**
 	 * Costruttore di partita.
 	 *
-	 * @param db il database
-	 * @param giocatori i giocatori
+	 * @param db il database corrente dell'applicazione
+	 * @param giocatori i giocatori partecipanti
 	 * @throws SQLException l'eccezione SQL lanciata
 	 */
 	public Partita( DBManager db, Vector<Giocatore> giocatori) throws SQLException{
@@ -43,7 +43,7 @@ public class Partita {
 	
 	/**
 	 * Il metodo turno, che rappresenta il turno di un giocatore.
-	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantità corrispondente.
+	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantitˆ corrispondente.
 	 * Controlla se i dadi sono uguali, e in caso di risposta affermativa fa rilanciare i dadi.
 	 * Se si tirano dadi doppi per tre volte il metodo sposta il giocatore in prigione.
 	 * 

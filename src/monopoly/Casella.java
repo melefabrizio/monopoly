@@ -26,7 +26,7 @@ public class Casella {
 	 *
 	 * @param id l'id della casella
 	 * @param nome il nome della casella
-	 * @param prezzo il prezzo della propriet‡
+	 * @param prezzo il prezzo della proprietà
 	 */
 	public Casella(int id, String nome, int prezzo) {
 		this.id = id;
@@ -37,10 +37,10 @@ public class Casella {
 	}
 	
 	/**
-	 * Fa stazionare il gocatore su una casella.
+	 * Ritorna vero se il giocatore è presente sulla casella.
 	 *
 	 * @param g il giocatore
-	 * @return true, se la condizione dell'if Ë verificata
+	 * @return Un boolean, true se il giocatore è presente sulla casella, false altrimenti.
 	 */
 	public boolean staziona(Giocatore g){
 		for(Giocatore giocatore:giocatori){
@@ -52,7 +52,7 @@ public class Casella {
 	}
 	
 	/**
-	 * Rimuove il giocatore da una casella.
+	 * Rimuove il giocatore dalla casella.
 	 *
 	 * @param g il giocatore
 	 */
@@ -61,7 +61,7 @@ public class Casella {
 	}
 	
 	/**
-	 * Inserisce il giocatore in una casella.
+	 * Inserisce il giocatore nella casella.
 	 *
 	 * @param g il giocatore
 	 */
@@ -70,7 +70,7 @@ public class Casella {
 	}
 	
 	/**
-	 * Get dell'id.
+	 * Getter dell'id.
 	 *
 	 * @return l'id
 	 */
@@ -79,7 +79,7 @@ public class Casella {
 	}
 
 	/**
-	 * Get del nome.
+	 * Getter del nome.
 	 *
 	 * @return il nome
 	 */
@@ -88,7 +88,7 @@ public class Casella {
 	}
 
 	/**
-	 * Get del prezzo.
+	 * Getter del prezzo.
 	 *
 	 * @return il prezzo
 	 */
@@ -97,7 +97,7 @@ public class Casella {
 	}
 
 	/**
-	 * Setta l'd.
+	 * Setter dell'id.
 	 *
 	 * @param id il nuovo id
 	 */
@@ -106,7 +106,7 @@ public class Casella {
 	}
 
 	/**
-	 * Setta il nome.
+	 * Setter del nome.
 	 *
 	 * @param nome il nuovo nome
 	 */
@@ -115,7 +115,7 @@ public class Casella {
 	}
 
 	/**
-	 * Setta il prezzo.
+	 * Setter del prezzo.
 	 *
 	 * @param prezzo il nuovo prezzo
 	 */
@@ -124,9 +124,9 @@ public class Casella {
 	}
 	
 	/**
-	 * Get di giocatori.
+	 * Getter dei giocatori presenti.
 	 *
-	 * @return i giocatori
+	 * @return i giocatori presenti sulla casella
 	 */
 	public Vector<Giocatore> getGiocatori() {
 		return giocatori;

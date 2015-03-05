@@ -21,11 +21,11 @@ public class Tabellone {
 	private DBManager db;
 
 	/**
-	 * Il tabellone deve essere istanziato passandogli il database generale
+	 * Tabellone deve essere istanziata passandogli il database generale
 	 * dell'applicazione.
 	 *
 	 * @param db
-	 *            il database generale dell'applicazione
+	 *            l'istanza corrente del database
 	 * @throws SQLException
 	 *             l'eccezione SQL lanciata
 	 */
@@ -35,13 +35,12 @@ public class Tabellone {
 	}
 
 	/**
-	 * Il metodo che fa avanzare un giocatore, prende la posizione corrente del
-	 * giocatore, lo rimuove da quella e lo inserisce nella nuova posizione.
+	 * Metodo che muove un giocatore di una quantitˆ intera di caselle. 
 	 *
 	 * @param g
-	 *            il giocatore
+	 *            Il giocatore
 	 * @param avanzamento
-	 *            quantitˆ di avanzamento del giocatore
+	 *            Avanzamento in caselle. Se negativo retrocessione.
 	 */
 	protected void avanza(Giocatore g, int avanzamento) {
 
@@ -53,12 +52,12 @@ public class Tabellone {
 	}
 
 	/**
-	 * Metodo che sposta il giocatore.
+	 * Sposta il giocatore ad una nuova casella.
 	 *
 	 * @param g
-	 *            the g
+	 *            Il giocatore da spostare
 	 * @param newCasella
-	 *            the new casella
+	 *            L'id della casella di destinazione 
 	 */
 	protected void sposta(Giocatore g, int newCasella) {
 
@@ -113,7 +112,7 @@ public class Tabellone {
 	}
 
 	/**
-	 * Get di casella.
+	 * Getter di casella.
 	 *
 	 * @param g
 	 *            il giocatore

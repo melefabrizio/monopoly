@@ -109,10 +109,7 @@ public class Monopoly {
 	 *
 	 * @param args
 	 *            gli argomenti
-	 * @throws ClassNotFoundException
-	 *             la classe not found exception
-	 * @throws SQLException
-	 *             l'eccezione SQL
+	 *
 	 */
 	public static void main(String[] args)  {
 		DBManager db;
