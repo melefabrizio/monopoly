@@ -9,6 +9,8 @@ import java.util.Vector;
  */
 public class Partita {
 	
+	public static final int IMPORTO_INIZIALE = 5000;
+
 	/** Il Database */
 	private DBManager db;
 	

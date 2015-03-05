@@ -13,6 +13,9 @@ public class Giocatore {
 	/** Il numero della casella in cui è il giocatore. */
 	private int numeroCasella;
 	
+	/** Il capitale nelle tasche del giocatore. */
+	
+	private int capitale;
 	
 	/**
 	 * Il costruttore del giocatore.
@@ -76,6 +79,14 @@ public class Giocatore {
 	 */
 	public void setNumeroCasella(int numeroCasella) {
 		this.numeroCasella = numeroCasella;
+	}
+	
+	public int getCapitale(){
+		return capitale;
+	}
+	
+	public void setCapitale(int nc){
+		this.capitale = nc;
 	}
 	
 	public String toString(){
