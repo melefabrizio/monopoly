@@ -1,7 +1,6 @@
 
 import java.sql.*;
 import java.util.LinkedList;
-import java.util.Vector;
 
 /**
  * DB Manager
