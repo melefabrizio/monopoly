@@ -18,35 +18,62 @@ import java.util.*;
 import com.google.common.collect.Iterators;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * La classe Monopoly
+ */
 public class Monopoly {
 	
+	/** La costante SIMBOLO_MESSAGGIO_BENV_USCITA. */
 	private final static char SIMBOLO_MESSAGGIO_BENV_USCITA='~';
+	
+	/** La costante MSG_BENVENUTO. */
 	private final static String MSG_BENVENUTO = "BENVENUTO NEL GIOCO DEL MONOPOLY";
+	
+	/** La costante MSG_CHIUSURA. */
 	private final static String MSG_CHIUSURA = "GRAZIE PER AVERE USATO IL PROGRAMMA - ARRIVEDERCI";
+	
+	/** La costante MSG_INSERISCI_GIOCATORE. */
 	private final static String MSG_INSERISCI_GIOCATORE = "Inserisci un nuovo giocatore > ";
 	
 	//Menu 
 	
+	/** La costante VOCIMENU. */
 	final static String [] VOCIMENU={"Inserisci Nuovo Giocatore", "Stampa elenco giocatori", "Gioca"};
+	
+	/** La costante TITOLO_MENU. */
 	final static String TITOLO_MENU = "Menù Monopoly";
 	
-	// vettore di giocatori
 	
+	/** Il Vector di giocatori. */
 	private static Vector<Giocatore> players = new Vector<Giocatore>();
 
 	
+	/**
+	 * Il metodo benvenuto che saluta l'utente.
+	 */
 	private static void benvenuto()
 	{
 		UtilityIO.header(MSG_BENVENUTO,SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
 	}
 
+	/**
+	 * Il metodo saluti che saluta l'utente che sta per chiudere il programma
+	 */
 	private static void saluti()
 	{
 		UtilityIO.header(MSG_CHIUSURA,SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
 	}
 	
+	/**
+	 * Il metodo Main.
+	 *
+	 * @param args gli argomenti
+	 * @throws ClassNotFoundException la classe not found exception
+	 * @throws SQLException l'eccezione SQL
+	 */
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
 		DBManager db = new DBManager();
@@ -86,6 +113,9 @@ public class Monopoly {
 			
 		}
 		
+		/**
+		 * Inserisci giocatore.
+		 */
 		private static void inserisciGiocatore(){
 		
 			if(players.size()>5)
@@ -96,6 +126,11 @@ public class Monopoly {
 				players.add(new Giocatore(InputDati.leggiStringa(MSG_INSERISCI_GIOCATORE)));
 		}
 		
+		/**
+		 * Stampa giocatori.
+		 *
+		 * @param giocatori i giocatori
+		 */
 		private static void stampaGiocatori(Vector<Giocatore> giocatori){
 			
 			int i=0;
@@ -107,6 +142,13 @@ public class Monopoly {
 			}
 		}
 		
+		/**
+		 * Il metodo che permette di effettuare una partita.
+		 *
+		 * @param database il database
+		 * @throws ClassNotFoundException la classe not found exception
+		 * @throws SQLException l'eccezione SQL
+		 */
 		private static void gioca(DBManager database) throws ClassNotFoundException, SQLException{
 			
 			if(players.size()<2)
