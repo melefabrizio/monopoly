@@ -138,7 +138,13 @@ public class Monopoly {
 				stampaGiocatori(players);
 				break;
 			case 3:
-				gioca(db);
+				try{
+					gioca(db);
+				}catch (SQLException e){
+					System.out.println("Si è verificato un errore nel Database.");
+				}catch(ClassNotFoundException e){
+					System.out.println("Si è verificato un errore nella libreria SQL.");
+				}
 				break;
 
 			case 0:
