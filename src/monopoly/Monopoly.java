@@ -1,3 +1,5 @@
+package monopoly;
+
 /**
  * <p>Title: Monopoly</p>
  *

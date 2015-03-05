@@ -1,3 +1,4 @@
+package monopoly;
 
 import java.sql.*;
 import java.util.LinkedList;
