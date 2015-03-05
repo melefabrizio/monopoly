@@ -70,7 +70,7 @@ public class Partita {
 			avanzamento += dadi[1];
 			
 			
-			System.out.print(gCorrente.getNome()+" lancia i dadi ed escono:  ");
+			System.out.print("[" +gCorrente.getNome()+"]"+" lancia i dadi ed escono:  ");
 			System.out.print(+dadi[0]+" e "+dadi[1]+". ");
 			System.out.print(dadi[0] == dadi[1]?"Dadi doppi!\n":"\n");
 
