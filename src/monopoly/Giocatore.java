@@ -10,7 +10,7 @@ public class Giocatore {
 	/** Il nome del giocatore. */
 	private String nome;
 	
-	/** Il numero della casella in cui è il giocatore. */
+	/** Il numero della casella in cui ÔøΩ il giocatore. */
 	private int numeroCasella;
 	
 	/** Il capitale nelle tasche del giocatore. */
@@ -90,7 +90,14 @@ public class Giocatore {
 	}
 	
 	public String toString(){
-		return this.nome;
+		
+		StringBuffer output=new StringBuffer();
+			
+			output.append("Il giocatore "+this.nome+" possiede "+ this.getCapitale()+"‚Ç¨");
+			
+			return output.toString();
+		
+		
 	}
 	
 	

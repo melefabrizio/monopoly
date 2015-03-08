@@ -9,7 +9,7 @@ package monopoly;
  *
  * <p>Company: UNIBS</p>
  *
- * @author F. Mele, D. Falleti, F. Cordioli
+ * @author F. Mele D. Falleti, F. Cordioli
  * @version 1.0
  */
 
@@ -17,8 +17,6 @@ import java.sql.SQLException;
 
 import java.util.*;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * La classe Monopoly
  */
@@ -35,6 +33,8 @@ public class Monopoly {
 
 	/** La costante Numero Turni */
 	private static final int NUMERO_TURNI = 20;
+	
+	private static final int CAPITALE_INIZIALE = 5000; 
 
 	// Menu
 
@@ -44,7 +44,7 @@ public class Monopoly {
 	/** La costante SIMBOLO_MESSAGGIO_BENV_USCITA. */
 	private final static char SIMBOLO_MESSAGGIO_BENV_USCITA = '~';
 	/** La costante TITOLO_MENU. */
-	final static String TITOLO_MENU = "Menù Monopoly";
+	final static String TITOLO_MENU = "MenÃ¹ Monopoly";
 
 	/** La costante VOCIMENU. */
 	final static String[] VOCIMENU = { "Inserisci Nuovo Giocatore",
@@ -80,6 +80,11 @@ public class Monopoly {
 		else {
 			Collections.shuffle(players);
 			Partita parta = new Partita(database, players);
+			
+			for(Giocatore p : players){
+				Banca.prelievo(p, CAPITALE_INIZIALE);
+				
+			}
 
 			int turno = 0;
 			while (turno < NUMERO_TURNI * players.size()) {
@@ -117,7 +122,7 @@ public class Monopoly {
 		try{
 			 db = new DBManager();
 		}catch (Exception e){
-			System.out.println("Si  verificato un errore nella connessione al Database.");
+			System.out.println("Si ï¿½ verificato un errore nella connessione al Database.");
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
@@ -143,11 +148,11 @@ public class Monopoly {
 				try{
 					gioca(db);
 				}catch (SQLException e){
-					System.out.println("Si  verificato un errore nel Database.");
+					System.out.println("Si ï¿½ verificato un errore nel Database.");
 					System.out.println(e.getMessage());
 
 				}catch(ClassNotFoundException e){
-					System.out.println("Si  verificato un errore nella libreria SQL.");
+					System.out.println("Si ï¿½ verificato un errore nella libreria SQL.");
 					System.out.println(e.getMessage());
 
 				}
