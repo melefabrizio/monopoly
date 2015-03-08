@@ -42,15 +42,25 @@ public class Tabellone {
 	 * @param avanzamento
 	 *            Avanzamento in caselle. Se negativo retrocessione.
 	 */
+//	protected void avanza(Giocatore g, int avanzamento) {
+//
+//		int posCorrente = g.getNumeroCasella();
+//		int newPos = posCorrente + avanzamento;
+//		newPos = newPos > 40 ? newPos - 40 : newPos;
+//		sposta(g, newPos);
+//
+//	}
 	protected void avanza(Giocatore g, int avanzamento) {
 
 		int posCorrente = g.getNumeroCasella();
 		int newPos = posCorrente + avanzamento;
-		newPos = newPos > 40 ? newPos - 40 : newPos;
+		if(newPos >40){
+			newPos=newPos-40;
+			g.setCapitale(g.getCapitale()+500);
+		}
 		sposta(g, newPos);
 
 	}
-
 	/**
 	 * Sposta il giocatore ad una nuova casella.
 	 *
