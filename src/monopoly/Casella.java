@@ -16,6 +16,8 @@ public class Casella {
 	/** Attributo prezzo. */
 	private int prezzo;
 	
+	private MovementListener listener;
+	
 	/** Attributo giocatori. */
 	private Vector<Giocatore> giocatori;
 
@@ -33,7 +35,23 @@ public class Casella {
 		this.nome = nome;
 		this.prezzo = prezzo;
 		this.giocatori = new Vector<Giocatore>();
+		this.listener = null;
+	}
+	
+	public void hop(Giocatore g){
 		
+		listener.onHop(g, this);
+		
+	}
+	public void stop(Giocatore g){
+		
+		giocatori.add(g);
+		listener.onStop(g, this);
+		
+	}
+	
+	public void setMovementListener(MovementListener l){
+		this.listener = l;
 	}
 	
 	/**

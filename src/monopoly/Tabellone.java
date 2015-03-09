@@ -50,16 +50,22 @@ public class Tabellone {
 //		sposta(g, newPos);
 //
 //	}
-	protected void avanza(Giocatore g, int avanzamento) {
+	public void avanza(Giocatore g, int avanzamento) {
 
 		int posCorrente = g.getNumeroCasella();
 		int newPos = posCorrente + avanzamento;
-		if(newPos >40){
+		if(newPos >=40){
 			newPos=newPos-40;
 			g.setCapitale(g.getCapitale()+500);
 		}
 		sposta(g, newPos);
 
+	}
+	
+	public void setMovementListener(MovementListener l){
+		for(Casella casella:caselle){
+			casella.setMovementListener(l);
+		}
 	}
 	/**
 	 * Sposta il giocatore ad una nuova casella.
@@ -69,12 +75,20 @@ public class Tabellone {
 	 * @param newCasella
 	 *            L'id della casella di destinazione 
 	 */
-	protected void sposta(Giocatore g, int newCasella) {
+	private void sposta(Giocatore g, int newCasella) {
 
 		boolean rimosso = false;
 		boolean inserito = false;
-
-		for (Casella casella : this.caselle) {
+		int id = g.getNumeroCasella();
+		getCasella(id).rimuovi(g);
+		while(id != newCasella ){
+			id++;
+			getCasella(id).hop(g);
+			if(id==40)
+				id =0;
+		}
+		getCasella(newCasella).stop(g);
+		/*for (Casella casella : this.caselle) {
 
 			if (casella.staziona(g)) {
 				casella.rimuovi(g);
@@ -89,11 +103,35 @@ public class Tabellone {
 			}
 
 		}
+		*/
+		
 		g.setNumeroCasella(newCasella);
 
 	}
+	public void spostaDiretto(Giocatore g, int newCasella) {	
+	boolean rimosso = false;
+	boolean inserito = false;
+	
+	for (Casella casella : this.caselle) {
 
-	protected void posiziona(Giocatore g, int pos) {
+		if (casella.staziona(g)) {
+			casella.rimuovi(g);
+
+		}
+	}
+
+	for (Casella casella : this.caselle) {
+
+		if (casella.getId() == newCasella) {
+			casella.inserisci(g);
+		}
+
+	}
+	
+	g.setNumeroCasella(newCasella);
+
+}
+	public void posiziona(Giocatore g, int pos) {
 
 		Iterator<Casella> iterator = this.caselle.iterator();
 
@@ -133,6 +171,18 @@ public class Tabellone {
 		for (Casella casella : caselle) {
 
 			if (casella.staziona(g)) {
+				return casella;
+
+			}
+
+		}
+		return caselle.getFirst();
+	}
+	public Casella getCasella(int id) {
+
+		for (Casella casella : caselle) {
+
+			if (casella.getId() == id) {
 				return casella;
 
 			}

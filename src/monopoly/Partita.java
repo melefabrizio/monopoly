@@ -34,6 +34,7 @@ public class Partita implements MovementListener{
 		this.db = db;
 		this.giocatori = giocatori;
 		tabellone = new Tabellone(db);
+		tabellone.setMovementListener(this);
 		iterator = this.giocatori.iterator(); 
 		for(Giocatore giocatore:this.giocatori){
 			tabellone.posiziona(giocatore, 0);
@@ -93,7 +94,7 @@ public class Partita implements MovementListener{
 				System.out.println("Ritira!");
 			}
 			if(ripetizione == 3){
-				tabellone.sposta(gCorrente, Tabellone.PRIGIONE);
+				tabellone.spostaDiretto(gCorrente, Tabellone.PRIGIONE);
 				System.out.println("In prigione!");
 				ritira=false;
 			}
