@@ -15,6 +15,12 @@ public class Tabellone {
 	public static final int PRIGIONE = 10;
 	
 	public static final int IN_PRIGIONE = 30;
+	
+	public static final int T_PATRIMONIALE = 4;
+	public static final int T_LUSSO= 38;
+
+	public static final int T_LUSSO_I = 10;
+	public static final int T_PATRIMONIALE_I = 250;
 
 	/** Le caselle. */
 	private LinkedList<Casella> caselle;

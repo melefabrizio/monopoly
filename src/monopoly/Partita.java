@@ -113,10 +113,29 @@ public class Partita implements MovementListener{
 
 	@Override
 	public void onStop(Giocatore g, Casella c) {
-		switch(c.getId()){
-		case Tabellone.IN_PRIGIONE:
-			
+		try{
+			switch(c.getId()){
+		
+				case Tabellone.IN_PRIGIONE:
+					tabellone.spostaDiretto(g, Tabellone.PRIGIONE);
+					break;
+				case Tabellone.T_LUSSO:
+					Banca.versamento(g, Tabellone.T_LUSSO_I);
+					break;
+				case Tabellone.T_PATRIMONIALE:
+					Banca.versamento(g, Tabellone.T_PATRIMONIALE_I);
+					break;
+				
+			}
+		}catch(FallimentoException f){
+			handleFallimento(f);
 		}
+		
+	}
+
+	private void handleFallimento(FallimentoException f) {
+		f.toString();
+		this.giocatori.remove(f.getGiocatore());
 		
 	}
 	

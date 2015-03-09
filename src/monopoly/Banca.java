@@ -19,9 +19,11 @@ public class Banca {
 	 * 			Il giocatore dal quale prelevare l'importo 
 	 * @param importo
 	 * 			L'importo da versare alla banca.
+	 * @throws FallimentoException 
 	 */
-	public static void versamento(Giocatore g, int importo){
+	public static void versamento(Giocatore g, int importo) throws FallimentoException{
 		g.setCapitale(g.getCapitale()-importo);
+		checkFallimento(g);
 	}
 	/**
 	 * Metodo per eseguire un prelievo dalla banca da parte del giocatore
@@ -43,10 +45,13 @@ public class Banca {
 	 * 			Il giocatore al quale versare
 	 * @param importo
 	 * 			L'ammontare del trasferimento
+	 * @throws FallimentoException 
 	 */
-	public static void trasferimento(Giocatore mittente, Giocatore destinatario, int importo){
+	public static void trasferimento(Giocatore mittente, Giocatore destinatario, int importo) throws FallimentoException{
 		prelievo(mittente, importo);
 		versamento(destinatario, importo);
+		checkFallimento(mittente);
+
 	}
 	
 	/**
@@ -59,6 +64,11 @@ public class Banca {
 		for(Giocatore g:giocatori){
 			g.setCapitale(Partita.IMPORTO_INIZIALE);
 		}
+	}
+	
+	public static void checkFallimento(Giocatore g) throws FallimentoException{
+		if(g.getCapitale()<=0)
+			throw new FallimentoException(g);
 	}
 
 }
