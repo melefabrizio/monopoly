@@ -7,7 +7,7 @@ import java.util.Vector;
 /**
  * La classe che rappresenta una Partita.
  */
-public class Partita {
+public class Partita implements MovementListener{
 	
 	public static final int IMPORTO_INIZIALE = 5000;
 
@@ -98,6 +98,18 @@ public class Partita {
 				ritira=false;
 			}
 		}while(ritira);
+	}
+
+	@Override
+	public void onHop(Giocatore g, Casella c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStop(Giocatore g, Casella c) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
