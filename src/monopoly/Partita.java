@@ -11,6 +11,8 @@ public class Partita implements MovementListener{
 	
 	public static final int IMPORTO_INIZIALE = 5000;
 
+	private static final int IMPORTO_VIA = 500;
+
 	/** Il Database */
 	private DBManager db;
 	
@@ -103,7 +105,9 @@ public class Partita implements MovementListener{
 
 	@Override
 	public void onHop(Giocatore g, Casella c) {
-		// TODO Auto-generated method stub
+		if(c.getId()==Tabellone.VIA){
+			Banca.prelievo(g, IMPORTO_VIA);
+		}
 		
 	}
 
