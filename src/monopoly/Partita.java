@@ -88,7 +88,7 @@ public class Partita implements MovementListener{
 			System.out.print(" a ");
 			System.out.print(
 					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n\n");
-			
+			System.out.println("Il giocatore ha "+gCorrente.getCapitale());
 			if(dadi[0]==dadi[1]){
 				ritira = true;
 				ripetizione++;
@@ -113,7 +113,10 @@ public class Partita implements MovementListener{
 
 	@Override
 	public void onStop(Giocatore g, Casella c) {
-		// TODO Auto-generated method stub
+		switch(c.getId()){
+		case Tabellone.IN_PRIGIONE:
+			
+		}
 		
 	}
 	

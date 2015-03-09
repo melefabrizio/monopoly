@@ -13,6 +13,8 @@ public class Tabellone {
 
 	/** La costante PRIGIONE. */
 	public static final int PRIGIONE = 10;
+	
+	public static final int IN_PRIGIONE = 30;
 
 	/** Le caselle. */
 	private LinkedList<Casella> caselle;
@@ -56,7 +58,6 @@ public class Tabellone {
 		int newPos = posCorrente + avanzamento;
 		if(newPos >=40){
 			newPos=newPos-40;
-			g.setCapitale(g.getCapitale()+500);
 		}
 		sposta(g, newPos);
 
