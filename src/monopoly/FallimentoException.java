@@ -15,7 +15,7 @@ public class FallimentoException extends Exception {
 	
 	public String toString(){
 		String r = new String();
-		r = "Il giocatore "+g.getNome()+" è fallito";
+		r = "Il giocatore "+g.getNome()+" ÔøΩ fallito \n";
 		return r;
 	}
 

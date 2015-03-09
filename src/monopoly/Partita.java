@@ -87,8 +87,8 @@ public class Partita implements MovementListener{
 			
 			System.out.print(" a ");
 			System.out.print(
-					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n\n");
-			System.out.println("Il giocatore ha "+gCorrente.getCapitale());
+					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n");
+			System.out.println("Il giocatore ha "+gCorrente.getCapitale()+"€\n");
 			if(dadi[0]==dadi[1]){
 				ritira = true;
 				ripetizione++;
