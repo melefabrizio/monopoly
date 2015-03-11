@@ -21,7 +21,7 @@ public class Casella {
 	/** Attributo giocatori. */
 	private Vector<Giocatore> giocatori;
 
-
+	
 
 	/**
 	 * Costruttore di casella.
@@ -46,6 +46,7 @@ public class Casella {
 	public void stop(Giocatore g){
 		
 		giocatori.add(g);
+		g.setNumeroCasella(this.id);
 		listener.onStop(g, this);
 		
 	}

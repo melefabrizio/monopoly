@@ -112,12 +112,11 @@ public class Tabellone {
 		}
 		*/
 		
-		g.setNumeroCasella(newCasella);
+		
 
 	}
-	public void spostaDiretto(Giocatore g, int newCasella) {	
-	boolean rimosso = false;
-	boolean inserito = false;
+public void spostaDiretto(Giocatore g, int newCasella) {	
+	
 	
 	for (Casella casella : this.caselle) {
 
@@ -131,11 +130,13 @@ public class Tabellone {
 
 		if (casella.getId() == newCasella) {
 			casella.inserisci(g);
+			casella.stop(g);
 		}
 
 	}
 	
-	g.setNumeroCasella(newCasella);
+	
+	
 
 }
 	public void posiziona(Giocatore g, int pos) {
