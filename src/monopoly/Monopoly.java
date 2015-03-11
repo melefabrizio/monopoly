@@ -104,9 +104,10 @@ public class Monopoly {
 
 		if (players.size() > 5) {
 			System.out.println("Raggiunto il numero massimo di giocatori\n");
-		} else
+		
+		}else
 			players.add(new Giocatore(InputDati
-					.leggiStringa(MSG_INSERISCI_GIOCATORE)));
+					.leggiStringaNonVuota(MSG_INSERISCI_GIOCATORE)));
 	}
 
 	/**
