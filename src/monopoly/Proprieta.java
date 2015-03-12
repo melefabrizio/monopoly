@@ -23,8 +23,10 @@ public class Proprieta {
 		this.valore = valore;
 	}
 
-	public int calcolaAffitto(Giocatore g){
-		return this.getValore()*Partita.PERCENTUALE_AFFITTO.intValue();
+	public double calcolaAffitto(Giocatore g){
+		//return this.getValore()*Partita.PERCENTUALE_AFFITTO.intValue();
+		return this.getValore()*0.1;
+
 	}
 	
 	public void setAffitto(int affitto) {

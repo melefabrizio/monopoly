@@ -137,7 +137,7 @@ public class Partita implements MovementListener{
 						if(c.getProprieta().getProprietario() == null){
 								acquistaProprieta(g, c.getProprieta());
 						}
-						else{
+						else if(!c.getProprieta().getProprietario().equals(g)){
 							
 							calcolaPassaggio(g, c);
 							
@@ -154,8 +154,8 @@ public class Partita implements MovementListener{
 	private void calcolaPassaggio(Giocatore g, Casella c)
 			throws FallimentoException {
 		Giocatore proprietario = c.getProprieta().getProprietario();
-		int affitto = c.getProprieta().calcolaAffitto(g);
-		Banca.trasferimento(g, proprietario, affitto);
+		double affitto = c.getProprieta().calcolaAffitto(g);
+		Banca.trasferimento(g, proprietario, (int) affitto);
 		System.out.println(g.getNome()+" ha pagato a "+proprietario.getNome()+ " "+affitto);
 
 	}

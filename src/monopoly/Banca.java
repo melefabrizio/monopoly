@@ -48,8 +48,8 @@ public class Banca {
 	 * @throws FallimentoException 
 	 */
 	public static void trasferimento(Giocatore mittente, Giocatore destinatario, int importo) throws FallimentoException{
-		prelievo(mittente, importo);
-		versamento(destinatario, importo);
+		versamento(mittente, importo);
+		prelievo(destinatario, importo);
 		checkFallimento(mittente);
 
 	}
