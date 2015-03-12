@@ -194,7 +194,7 @@ public class Monopoly {
 		
 		if(vincitori.size()==1){
 			System.out.println("Il vincitore è "+vincitori.get(0).getNome()+
-					", con un capitale finale di "+vincitori.get(0).getCapitale());
+					", con un capitale finale di "+vincitori.get(0).getCapitale()+" euro");
 		}else{
 			StringBuffer b = new StringBuffer();
 			b.append("I vincitori sono ");
@@ -202,7 +202,7 @@ public class Monopoly {
 				b.append(g.getNome()+", ");
 				
 			}
-			b.append(", con un capitale finale di "+max);
+			b.append(", con un capitale finale di "+max+" euro");
 			System.out.println(b.toString());
 			
 		}
