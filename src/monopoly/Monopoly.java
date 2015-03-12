@@ -95,6 +95,7 @@ public class Monopoly {
 			}
 
 		}
+		proclamaVincitore();
 	}
 
 	/**
@@ -164,7 +165,7 @@ public class Monopoly {
 			}
 
 		} while (continuaCiclo);
-
+		
 		saluti();
 
 	}
@@ -175,6 +176,36 @@ public class Monopoly {
 	private static void saluti() {
 		UtilityIO.header(MSG_CHIUSURA, SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
+	}
+	
+	private static void proclamaVincitore(){
+		int max =0;
+		Vector<Giocatore> vincitori = new Vector<Giocatore>();
+		for(Giocatore g:players){
+			if(g.getCapitale()>max){
+				max = g.getCapitale();
+			}
+		}
+		for(Giocatore g:players){
+			if(g.getCapitale() == max){
+				vincitori.add(g);
+			}
+		}
+		
+		if(vincitori.size()==1){
+			System.out.println("Il vincitore è "+vincitori.get(0).getNome()+
+					", con un capitale finale di "+vincitori.get(0).getCapitale());
+		}else{
+			StringBuffer b = new StringBuffer();
+			b.append("I vincitori sono ");
+			for(Giocatore g:players){
+				b.append(g.getNome()+", ");
+				
+			}
+			b.append(", con un capitale finale di "+max);
+			System.out.println(b.toString());
+			
+		}
 	}
 
 	/**
