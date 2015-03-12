@@ -21,7 +21,8 @@ public class Casella {
 	/** Attributo giocatori. */
 	private Vector<Giocatore> giocatori;
 
-	
+	private Proprieta proprieta;
+
 
 	/**
 	 * Costruttore di casella.
@@ -158,6 +159,14 @@ public class Casella {
 	 */
 	public void setGiocatori(Vector<Giocatore> giocatori) {
 		this.giocatori = giocatori;
+	}
+
+	public Proprieta getProprieta() {
+		return proprieta;
+	}
+
+	public void setProprieta(Proprieta proprieta) {
+		this.proprieta = proprieta;
 	}
 
 }

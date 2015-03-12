@@ -13,6 +13,8 @@ public class Partita implements MovementListener{
 
 	private static final int IMPORTO_VIA = 500;
 
+	public static final double PERCENTUALE_AFFITTO = 0.1;
+
 	/** Il Database */
 	private DBManager db;
 	

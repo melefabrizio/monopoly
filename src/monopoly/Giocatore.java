@@ -1,5 +1,7 @@
 package monopoly;
 
+import java.util.Vector;
+
 
 
 /**
@@ -17,6 +19,7 @@ public class Giocatore {
 	
 	private int capitale;
 	
+	private Vector<Proprieta> possedimenti;
 	/**
 	 * Il costruttore del giocatore.
 	 *
@@ -98,6 +101,38 @@ public class Giocatore {
 			return output.toString();
 		
 		
+	}
+	
+	public void aggiungiProprieta(Proprieta p){
+		this.possedimenti.add(p);
+	}
+	public Vector<Proprieta> getProprieta(){
+		return this.possedimenti;
+	}
+	
+	public boolean possiede(Proprieta c){
+		for(Proprieta p:possedimenti){
+			if(p.equals(c))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean possiede (Tabellone t, Colori c){
+		
+		Vector<Terreno> terreniColore = new Vector<Terreno>();
+		for(Proprieta p: t.getProprieta()){
+			if(((Terreno)p).getColore() == c){
+				terreniColore.add((Terreno)p);
+			}
+			
+		}
+		
+		for(Terreno terreno: terreniColore){
+			if(! possiede(terreno))
+				return false;
+		}
+		return true;
 	}
 	
 	

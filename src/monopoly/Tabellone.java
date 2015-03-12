@@ -2,6 +2,7 @@ package monopoly;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 /**
  * La classe che rappresenta il tabellone.
@@ -197,6 +198,14 @@ public void spostaDiretto(Giocatore g, int newCasella) {
 
 		}
 		return caselle.getFirst();
+	}
+	
+	public Vector<Proprieta> getProprieta(){
+		Vector<Proprieta> proprieta = new Vector<Proprieta>();
+		for(Casella c: this.caselle){
+			proprieta.add(c.getProprieta());
+		}
+		return proprieta;
 	}
 
 }
