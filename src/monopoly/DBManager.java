@@ -26,7 +26,7 @@ public class DBManager {
 	}
 	/**
 	 * Ritorna un vector di caselle facendo il parsing della tabella "caselle" nel database
-	 * @return Vector di Caselle
+	 * @return Vector<Casella>
 	 * @throws SQLException
 	 */
 	public LinkedList<Casella> getCaselle() throws SQLException{

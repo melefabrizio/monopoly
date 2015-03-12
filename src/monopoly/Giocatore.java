@@ -10,14 +10,17 @@ public class Giocatore {
 	/** Il nome del giocatore. */
 	private String nome;
 	
-	/** Il numero della casella in cui è il giocatore. */
+	/** Il numero della casella in cui ï¿½ il giocatore. */
 	private int numeroCasella;
 	
+	/** Il capitale nelle tasche del giocatore. */
+	
+	private int capitale;
 	
 	/**
 	 * Il costruttore del giocatore.
 	 *
-	 * @param nome il nome passato al costruttore
+	 * @param nome Il nome del nuovo giocatore
 	 */
 	public Giocatore(String nome){
 		
@@ -26,7 +29,7 @@ public class Giocatore {
 	}
 	
 	/**
-	 * Il metodo che lancia i dadi.
+	 * Metodo per lanciare i dadi.
 	 *
 	 * @return Integer[] un vettore di interi, contenente i numeri dei dadi lanciati
 	 */
@@ -40,7 +43,7 @@ public class Giocatore {
 	}
 
 	/**
-	 * Get del nome.
+	 * Geter del nome.
 	 *
 	 * @return il nome
 	 */
@@ -50,7 +53,7 @@ public class Giocatore {
 
 
 	/**
-	 * Setta il nome.
+	 * Setter il nome.
 	 *
 	 * @param nome il nuovo nome
 	 */
@@ -60,9 +63,9 @@ public class Giocatore {
 
 
 	/**
-	 * Get del numero della casella.
+	 * Geter dell'id della casella.
 	 *
-	 * @return il numero della casella
+	 * @return  l'id della casella
 	 */
 	public int getNumeroCasella() {
 		return numeroCasella;
@@ -70,7 +73,7 @@ public class Giocatore {
 
 
 	/**
-	 * Setta il numero della casella.
+	 * Setter del numero della casella.
 	 *
 	 * @param numeroCasella il nuovo numero della casella
 	 */
@@ -78,8 +81,23 @@ public class Giocatore {
 		this.numeroCasella = numeroCasella;
 	}
 	
+	public int getCapitale(){
+		return capitale;
+	}
+	
+	public void setCapitale(int nc){
+		this.capitale = nc;
+	}
+	
 	public String toString(){
-		return this.nome;
+		
+		StringBuffer output=new StringBuffer();
+			
+			output.append("Il giocatore "+this.nome+" possiede "+ this.getCapitale()+"â‚¬");
+			
+			return output.toString();
+		
+		
 	}
 	
 	

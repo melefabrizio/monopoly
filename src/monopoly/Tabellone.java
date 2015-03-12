@@ -13,6 +13,14 @@ public class Tabellone {
 
 	/** La costante PRIGIONE. */
 	public static final int PRIGIONE = 10;
+	
+	public static final int IN_PRIGIONE = 30;
+	
+	public static final int T_PATRIMONIALE = 4;
+	public static final int T_LUSSO= 38;
+
+	public static final int T_LUSSO_I = 10;
+	public static final int T_PATRIMONIALE_I = 250;
 
 	/** Le caselle. */
 	private LinkedList<Casella> caselle;
@@ -21,11 +29,11 @@ public class Tabellone {
 	private DBManager db;
 
 	/**
-	 * Il tabellone deve essere istanziato passandogli il database generale
+	 * Tabellone deve essere istanziata passandogli il database generale
 	 * dell'applicazione.
 	 *
 	 * @param db
-	 *            il database generale dell'applicazione
+	 *            l'istanza corrente del database
 	 * @throws SQLException
 	 *             l'eccezione SQL lanciata
 	 */
@@ -35,37 +43,59 @@ public class Tabellone {
 	}
 
 	/**
-	 * Il metodo che fa avanzare un giocatore, prende la posizione corrente del
-	 * giocatore, lo rimuove da quella e lo inserisce nella nuova posizione.
+	 * Metodo che muove un giocatore di una quantitˆ intera di caselle. 
 	 *
 	 * @param g
-	 *            il giocatore
+	 *            Il giocatore
 	 * @param avanzamento
-	 *            quantitˆ di avanzamento del giocatore
+	 *            Avanzamento in caselle. Se negativo retrocessione.
 	 */
-	protected void avanza(Giocatore g, int avanzamento) {
+//	protected void avanza(Giocatore g, int avanzamento) {
+//
+//		int posCorrente = g.getNumeroCasella();
+//		int newPos = posCorrente + avanzamento;
+//		newPos = newPos > 40 ? newPos - 40 : newPos;
+//		sposta(g, newPos);
+//
+//	}
+	public void avanza(Giocatore g, int avanzamento) {
 
 		int posCorrente = g.getNumeroCasella();
 		int newPos = posCorrente + avanzamento;
-		newPos = newPos > 40 ? newPos - 40 : newPos;
+		if(newPos >=40){
+			newPos=newPos-40;
+		}
 		sposta(g, newPos);
 
 	}
-
+	
+	public void setMovementListener(MovementListener l){
+		for(Casella casella:caselle){
+			casella.setMovementListener(l);
+		}
+	}
 	/**
-	 * Metodo che sposta il giocatore.
+	 * Sposta il giocatore ad una nuova casella.
 	 *
 	 * @param g
-	 *            the g
+	 *            Il giocatore da spostare
 	 * @param newCasella
-	 *            the new casella
+	 *            L'id della casella di destinazione 
 	 */
-	protected void sposta(Giocatore g, int newCasella) {
+	private void sposta(Giocatore g, int newCasella) {
 
 		boolean rimosso = false;
 		boolean inserito = false;
-
-		for (Casella casella : this.caselle) {
+		int id = g.getNumeroCasella();
+		getCasella(id).rimuovi(g);
+		while(id != newCasella ){
+			id++;
+			getCasella(id).hop(g);
+			if(id==40)
+				id =0;
+		}
+		getCasella(newCasella).stop(g);
+		/*for (Casella casella : this.caselle) {
 
 			if (casella.staziona(g)) {
 				casella.rimuovi(g);
@@ -80,11 +110,35 @@ public class Tabellone {
 			}
 
 		}
+		*/
+		
 		g.setNumeroCasella(newCasella);
 
 	}
+	public void spostaDiretto(Giocatore g, int newCasella) {	
+	boolean rimosso = false;
+	boolean inserito = false;
+	
+	for (Casella casella : this.caselle) {
 
-	protected void posiziona(Giocatore g, int pos) {
+		if (casella.staziona(g)) {
+			casella.rimuovi(g);
+
+		}
+	}
+
+	for (Casella casella : this.caselle) {
+
+		if (casella.getId() == newCasella) {
+			casella.inserisci(g);
+		}
+
+	}
+	
+	g.setNumeroCasella(newCasella);
+
+}
+	public void posiziona(Giocatore g, int pos) {
 
 		Iterator<Casella> iterator = this.caselle.iterator();
 
@@ -113,7 +167,7 @@ public class Tabellone {
 	}
 
 	/**
-	 * Get di casella.
+	 * Getter di casella.
 	 *
 	 * @param g
 	 *            il giocatore
@@ -124,6 +178,18 @@ public class Tabellone {
 		for (Casella casella : caselle) {
 
 			if (casella.staziona(g)) {
+				return casella;
+
+			}
+
+		}
+		return caselle.getFirst();
+	}
+	public Casella getCasella(int id) {
+
+		for (Casella casella : caselle) {
+
+			if (casella.getId() == id) {
 				return casella;
 
 			}

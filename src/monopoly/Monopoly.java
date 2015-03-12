@@ -9,7 +9,7 @@ package monopoly;
  *
  * <p>Company: UNIBS</p>
  *
- * @author F. Mele, D. Falleti, F. Cordioli
+ * @author F. Mele D. Falleti, F. Cordioli
  * @version 1.0
  */
 
@@ -17,8 +17,6 @@ import java.sql.SQLException;
 
 import java.util.*;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * La classe Monopoly
  */
@@ -35,6 +33,8 @@ public class Monopoly {
 
 	/** La costante Numero Turni */
 	private static final int NUMERO_TURNI = 20;
+	
+	private static final int CAPITALE_INIZIALE = 5000; 
 
 	// Menu
 
@@ -44,7 +44,7 @@ public class Monopoly {
 	/** La costante SIMBOLO_MESSAGGIO_BENV_USCITA. */
 	private final static char SIMBOLO_MESSAGGIO_BENV_USCITA = '~';
 	/** La costante TITOLO_MENU. */
-	final static String TITOLO_MENU = "Men˘ Monopoly";
+	final static String TITOLO_MENU = "Men√π Monopoly";
 
 	/** La costante VOCIMENU. */
 	final static String[] VOCIMENU = { "Inserisci Nuovo Giocatore",
@@ -80,6 +80,11 @@ public class Monopoly {
 		else {
 			Collections.shuffle(players);
 			Partita parta = new Partita(database, players);
+			
+			for(Giocatore p : players){
+				Banca.prelievo(p, CAPITALE_INIZIALE);
+				
+			}
 
 			int turno = 0;
 			while (turno < NUMERO_TURNI * players.size()) {
@@ -90,6 +95,7 @@ public class Monopoly {
 			}
 
 		}
+		proclamaVincitore();
 	}
 
 	/**
@@ -109,10 +115,7 @@ public class Monopoly {
 	 *
 	 * @param args
 	 *            gli argomenti
-	 * @throws ClassNotFoundException
-	 *             la classe not found exception
-	 * @throws SQLException
-	 *             l'eccezione SQL
+	 *
 	 */
 	public static void main(String[] args)  {
 		DBManager db;
@@ -120,7 +123,7 @@ public class Monopoly {
 		try{
 			 db = new DBManager();
 		}catch (Exception e){
-			System.out.println("Si è verificato un errore nella connessione al Database.");
+			System.out.println("Si ÔøΩ verificato un errore nella connessione al Database.");
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
@@ -146,11 +149,11 @@ public class Monopoly {
 				try{
 					gioca(db);
 				}catch (SQLException e){
-					System.out.println("Si è verificato un errore nel Database.");
+					System.out.println("Si ÔøΩ verificato un errore nel Database.");
 					System.out.println(e.getMessage());
 
 				}catch(ClassNotFoundException e){
-					System.out.println("Si è verificato un errore nella libreria SQL.");
+					System.out.println("Si ÔøΩ verificato un errore nella libreria SQL.");
 					System.out.println(e.getMessage());
 
 				}
@@ -162,7 +165,7 @@ public class Monopoly {
 			}
 
 		} while (continuaCiclo);
-
+		
 		saluti();
 
 	}
@@ -173,6 +176,36 @@ public class Monopoly {
 	private static void saluti() {
 		UtilityIO.header(MSG_CHIUSURA, SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
+	}
+	
+	private static void proclamaVincitore(){
+		int max =0;
+		Vector<Giocatore> vincitori = new Vector<Giocatore>();
+		for(Giocatore g:players){
+			if(g.getCapitale()>max){
+				max = g.getCapitale();
+			}
+		}
+		for(Giocatore g:players){
+			if(g.getCapitale() == max){
+				vincitori.add(g);
+			}
+		}
+		
+		if(vincitori.size()==1){
+			System.out.println("Il vincitore è "+vincitori.get(0).getNome()+
+					", con un capitale finale di "+vincitori.get(0).getCapitale()+" euro");
+		}else{
+			StringBuffer b = new StringBuffer();
+			b.append("I vincitori sono ");
+			for(Giocatore g:players){
+				b.append(g.getNome()+", ");
+				
+			}
+			b.append(", con un capitale finale di "+max+" euro");
+			System.out.println(b.toString());
+			
+		}
 	}
 
 	/**

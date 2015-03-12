@@ -7,8 +7,12 @@ import java.util.Vector;
 /**
  * La classe che rappresenta una Partita.
  */
-public class Partita {
+public class Partita implements MovementListener{
 	
+	public static final int IMPORTO_INIZIALE = 5000;
+
+	private static final int IMPORTO_VIA = 500;
+
 	/** Il Database */
 	private DBManager db;
 	
@@ -24,14 +28,15 @@ public class Partita {
 	/**
 	 * Costruttore di partita.
 	 *
-	 * @param db il database
-	 * @param giocatori i giocatori
+	 * @param db il database corrente dell'applicazione
+	 * @param giocatori i giocatori partecipanti
 	 * @throws SQLException l'eccezione SQL lanciata
 	 */
 	public Partita( DBManager db, Vector<Giocatore> giocatori) throws SQLException{
 		this.db = db;
 		this.giocatori = giocatori;
 		tabellone = new Tabellone(db);
+		tabellone.setMovementListener(this);
 		iterator = this.giocatori.iterator(); 
 		for(Giocatore giocatore:this.giocatori){
 			tabellone.posiziona(giocatore, 0);
@@ -41,7 +46,7 @@ public class Partita {
 	
 	/**
 	 * Il metodo turno, che rappresenta il turno di un giocatore.
-	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantità corrispondente.
+	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantitˆ corrispondente.
 	 * Controlla se i dadi sono uguali, e in caso di risposta affermativa fa rilanciare i dadi.
 	 * Se si tirano dadi doppi per tre volte il metodo sposta il giocatore in prigione.
 	 * 
@@ -70,7 +75,7 @@ public class Partita {
 			avanzamento += dadi[1];
 			
 			
-			System.out.print(gCorrente.getNome()+" lancia i dadi ed escono:  ");
+			System.out.print("[" +gCorrente.getNome()+"]"+" lancia i dadi ed escono:  ");
 			System.out.print(+dadi[0]+" e "+dadi[1]+". ");
 			System.out.print(dadi[0] == dadi[1]?"Dadi doppi!\n":"\n");
 
@@ -82,8 +87,8 @@ public class Partita {
 			
 			System.out.print(" a ");
 			System.out.print(
-					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n\n");
-			
+					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n");
+			System.out.println("Il giocatore ha "+gCorrente.getCapitale()+" euro\n");
 			if(dadi[0]==dadi[1]){
 				ritira = true;
 				ripetizione++;
@@ -91,11 +96,47 @@ public class Partita {
 				System.out.println("Ritira!");
 			}
 			if(ripetizione == 3){
-				tabellone.sposta(gCorrente, Tabellone.PRIGIONE);
+				tabellone.spostaDiretto(gCorrente, Tabellone.PRIGIONE);
 				System.out.println("In prigione!");
 				ritira=false;
 			}
 		}while(ritira);
+	}
+
+	@Override
+	public void onHop(Giocatore g, Casella c) {
+		if(c.getId()==Tabellone.VIA){
+			Banca.prelievo(g, IMPORTO_VIA);
+		}
+		
+	}
+
+	@Override
+	public void onStop(Giocatore g, Casella c) {
+		try{
+			switch(c.getId()){
+		
+				case Tabellone.IN_PRIGIONE:
+					tabellone.spostaDiretto(g, Tabellone.PRIGIONE);
+					break;
+				case Tabellone.T_LUSSO:
+					Banca.versamento(g, Tabellone.T_LUSSO_I);
+					break;
+				case Tabellone.T_PATRIMONIALE:
+					Banca.versamento(g, Tabellone.T_PATRIMONIALE_I);
+					break;
+				
+			}
+		}catch(FallimentoException f){
+			handleFallimento(f);
+		}
+		
+	}
+
+	private void handleFallimento(FallimentoException f) {
+		f.toString();
+		this.giocatori.remove(f.getGiocatore());
+		
 	}
 	
 	
