@@ -133,7 +133,7 @@ public void spostaDiretto(Giocatore g, int newCasella) {
 	for (Casella casella : this.caselle) {
 
 		if (casella.getId() == newCasella) {
-			casella.inserisci(g);
+			//casella.inserisci(g);
 			casella.stop(g);
 		}
 
