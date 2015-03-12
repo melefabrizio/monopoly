@@ -34,7 +34,20 @@ public class DBManager {
 		LinkedList<Casella> caselle = new LinkedList<Casella>();
 		ResultSet rs = statement.executeQuery("select * from caselle");
 		while(rs.next()){
-			caselle.add(new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo")));
+			
+			Casella nuova = new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
+			Proprieta prop;
+			if(rs.getBoolean("terreno"))
+				prop = new Terreno(nuova, nuova.getPrezzo(), Colori.valueOf(rs.getString("colore")));
+			else if(rs.getBoolean("stazione"))
+				prop = new Stazione(nuova, nuova.getPrezzo(), Cardinali.valueOf(rs.getString("cardinale")));
+			else if(rs.getBoolean("societa"))
+				prop = new SocietaServizi(nuova, nuova.getPrezzo());
+			else
+				prop = new Proprieta(nuova, nuova.getPrezzo());
+			
+			nuova.setProprieta(prop);
+			caselle.add(nuova);
 			
 		}
 		rs.close();
