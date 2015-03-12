@@ -23,6 +23,8 @@ public class Casella {
 
 	private Proprieta proprieta;
 
+	private Tabellone tabellone;
+
 
 	/**
 	 * Costruttore di casella.
@@ -167,6 +169,14 @@ public class Casella {
 
 	public void setProprieta(Proprieta proprieta) {
 		this.proprieta = proprieta;
+	}
+	
+	public void setTabellone(Tabellone t){
+		this.tabellone = t;
+	}
+	
+	public Tabellone getTabellone(){
+		return this.tabellone;
 	}
 
 }

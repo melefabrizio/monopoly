@@ -10,9 +10,11 @@ public class SocietaServizi extends Proprieta {
 		
 	}
 	
-	public int calcolaAffitto(Giocatore e, int dadi){
+	public int calcolaAffitto(Giocatore e){
 		
-		return super.calcolaAffitto(e, dadi);
+		return e.getUltimoLancio()*this.getValore()*
+				(this.getProprietario().possiedeDueSocieta()?Partita.MOLTIPLICATORE_SOCIETA_DUE
+						:Partita.MOLTIPLICATORE_SOCIETA_UNA);
 		
 	}
 

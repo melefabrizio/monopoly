@@ -44,7 +44,7 @@ public class DBManager {
 			else if(rs.getBoolean("societa"))
 				prop = new SocietaServizi(nuova, nuova.getPrezzo());
 			else
-				prop = new Proprieta(nuova, nuova.getPrezzo());
+				prop = null;
 			
 			nuova.setProprieta(prop);
 			caselle.add(nuova);

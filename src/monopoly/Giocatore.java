@@ -20,6 +20,24 @@ public class Giocatore {
 	private int capitale;
 	
 	private Vector<Proprieta> possedimenti;
+	
+	private int ultimoLancio;
+	public Vector<Proprieta> getPossedimenti() {
+		return possedimenti;
+	}
+
+	public void setPossedimenti(Vector<Proprieta> possedimenti) {
+		this.possedimenti = possedimenti;
+	}
+
+	public int getUltimoLancio() {
+		return ultimoLancio;
+	}
+
+	public void setUltimoLancio(int ultimoLancio) {
+		this.ultimoLancio = ultimoLancio;
+	}
+
 	/**
 	 * Il costruttore del giocatore.
 	 *
@@ -42,6 +60,7 @@ public class Giocatore {
 
 		dadiEstratti = Util.lanciaDadi(2, 6);
 		
+		this.ultimoLancio=dadiEstratti[0]+dadiEstratti[1];
 		return dadiEstratti;
 	}
 
@@ -117,6 +136,14 @@ public class Giocatore {
 		}
 		return false;
 	}
+	public boolean possiede(String s){
+		for(Proprieta p:possedimenti){
+			if(p.getCasella().getNome().equals(s))
+				return true;
+		}
+		return false;
+	}
+	
 	
 	public boolean possiede (Tabellone t, Colori c){
 		
@@ -134,6 +161,12 @@ public class Giocatore {
 		}
 		return true;
 	}
+	public boolean possiedeDueSocieta(){
+		return possiede("Societa Elettrica") && possiede("Societa Acqua Potabile");
+		
+	}
+
+	
 	
 	
 

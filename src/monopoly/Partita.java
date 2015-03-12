@@ -13,7 +13,11 @@ public class Partita implements MovementListener{
 
 	private static final int IMPORTO_VIA = 500;
 
-	public static final double PERCENTUALE_AFFITTO = 0.1;
+	public static final Double PERCENTUALE_AFFITTO = 0.1;
+
+	public static final int MOLTIPLICATORE_SOCIETA_UNA = 4;
+
+	public static final int MOLTIPLICATORE_SOCIETA_DUE = 10;
 
 	/** Il Database */
 	private DBManager db;
@@ -127,7 +131,15 @@ public class Partita implements MovementListener{
 				case Tabellone.T_PATRIMONIALE:
 					Banca.versamento(g, Tabellone.T_PATRIMONIALE_I);
 					break;
-				
+				default:
+					if(c.getProprieta() != null){
+						if(c.getProprieta().getProprietario() == null){
+								acquistaProprieta(g, c.getProprieta());
+						}else{
+							calcolaPassaggio(g, c);
+						}
+						
+					}
 			}
 		}catch(FallimentoException f){
 			handleFallimento(f);
@@ -135,9 +147,32 @@ public class Partita implements MovementListener{
 		
 	}
 
+	private void calcolaPassaggio(Giocatore g, Casella c)
+			throws FallimentoException {
+		Giocatore proprietario = c.getProprieta().getProprietario();
+		Banca.trasferimento(g, proprietario, c.getProprieta().calcolaAffitto(g));
+		System.out.println(g.getNome()+" ha pagato a "+proprietario.getNome());
+
+	}
+
 	private void handleFallimento(FallimentoException f) {
 		f.toString();
 		this.giocatori.remove(f.getGiocatore());
+		
+	}
+	
+	private void acquistaProprieta(Giocatore g, Proprieta p){
+		try{
+			Banca.versamento(g, p.getValore());
+		}catch(FallimentoException e){
+			System.out.println("Fondi non sufficienti");
+			return;
+		}
+		g.aggiungiProprieta(p);
+		p.setProprietario(g);
+		System.out.println(g.getNome()+" ha acquistato "+p.getCasella().getNome());
+		
+		
 		
 	}
 	

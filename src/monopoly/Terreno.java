@@ -14,5 +14,14 @@ public class Terreno extends Proprieta {
 	public void setColore(Colori colore) {
 		this.colore = colore;
 	}
+	
+	public int calcolaAffitto(Giocatore g){
+		return super.calcolaAffitto(g)*
+				((this.getProprietario().possiede(this.getCasella().getTabellone(), this.getColore()))?
+						2
+						:1);
+	}
+	
+	
 
 }
