@@ -37,11 +37,12 @@ public class DBManager {
 			
 			Casella nuova = new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
 			Proprieta prop;
-			if(rs.getBoolean("terreno"))
-				prop = new Terreno(nuova, nuova.getPrezzo(), Colori.valueOf(rs.getString("colore")));
-			else if(rs.getBoolean("stazione"))
-				prop = new Stazione(nuova, nuova.getPrezzo(), Cardinali.valueOf(rs.getString("cardinale")));
-			else if(rs.getBoolean("societa"))
+			System.out.println(rs.getString("terreno")+ " "+rs.getString("nome")+" "+rs.getString("colore"));
+			if(rs.getString("terreno").equals("true"))		
+					prop = new Terreno(nuova, nuova.getPrezzo(), Colori.valueOf(Colori.class, rs.getString("colore").trim()));		
+			else if(rs.getString("stazione").equals("true"))
+				prop = new Stazione(nuova, nuova.getPrezzo(), Cardinali.valueOf(Cardinali.class, rs.getString("cardinale")));
+			else if(rs.getString("societa").equals("true"))
 				prop = new SocietaServizi(nuova, nuova.getPrezzo());
 			else
 				prop = null;

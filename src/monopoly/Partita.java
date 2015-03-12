@@ -133,10 +133,14 @@ public class Partita implements MovementListener{
 					break;
 				default:
 					if(c.getProprieta() != null){
+						System.out.println("La proprietà è acquistabile?");
 						if(c.getProprieta().getProprietario() == null){
 								acquistaProprieta(g, c.getProprieta());
-						}else{
+						}
+						else{
+							
 							calcolaPassaggio(g, c);
+							
 						}
 						
 					}
@@ -150,8 +154,9 @@ public class Partita implements MovementListener{
 	private void calcolaPassaggio(Giocatore g, Casella c)
 			throws FallimentoException {
 		Giocatore proprietario = c.getProprieta().getProprietario();
-		Banca.trasferimento(g, proprietario, c.getProprieta().calcolaAffitto(g));
-		System.out.println(g.getNome()+" ha pagato a "+proprietario.getNome());
+		int affitto = c.getProprieta().calcolaAffitto(g);
+		Banca.trasferimento(g, proprietario, affitto);
+		System.out.println(g.getNome()+" ha pagato a "+proprietario.getNome()+ " "+affitto);
 
 	}
 

@@ -92,6 +92,11 @@ public class Monopoly {
 					System.out.printf("Turno %d \n", ((turno + 1)/players.size())+1);
 				parta.turno();
 				turno += 1;
+				try{
+					System.in.read();
+				}catch(Exception e){
+					
+				}
 			}
 
 		}

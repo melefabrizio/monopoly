@@ -41,6 +41,9 @@ public class Tabellone {
 	public Tabellone(DBManager db) throws SQLException {
 		this.db = db;
 		this.caselle = db.getCaselle();
+		for(Casella c:caselle){
+			c.setTabellone(this);
+		}
 	}
 
 	/**

@@ -47,6 +47,7 @@ public class Giocatore {
 		
 			this.nome=nome;
 			this.numeroCasella=0;
+			possedimenti = new Vector<Proprieta>();
 	}
 	
 	/**
@@ -149,10 +150,11 @@ public class Giocatore {
 		
 		Vector<Terreno> terreniColore = new Vector<Terreno>();
 		for(Proprieta p: t.getProprieta()){
+			if(p instanceof Terreno){
 			if(((Terreno)p).getColore() == c){
 				terreniColore.add((Terreno)p);
 			}
-			
+			}
 		}
 		
 		for(Terreno terreno: terreniColore){
