@@ -116,7 +116,6 @@ public class Tabellone {
 
 	}
 	public void spostaDiretto(Giocatore g, int newCasella) {	
-<<<<<<< Updated upstream
 	boolean rimosso = false;
 	boolean inserito = false;
 	
@@ -132,37 +131,19 @@ public class Tabellone {
 
 		if (casella.getId() == newCasella) {
 			casella.inserisci(g);
-=======
 		
-		
-		for (Casella casella : this.caselle) {
-	
-			if (casella.staziona(g)) {
-				casella.rimuovi(g);
-	
-			}
->>>>>>> Stashed changes
 		}
-	
-<<<<<<< Updated upstream
+		
+	}
 	g.setNumeroCasella(newCasella);
 
-}
-=======
-		for (Casella casella : this.caselle) {
-	
-			if (casella.getId() == newCasella) {
-				//casella.inserisci(g);
-				casella.stop(g);
-			}
-	
-		}
-		
-		
-		
-	
 	}
->>>>>>> Stashed changes
+		
+		
+		
+		
+	
+	
 	public void posiziona(Giocatore g, int pos) {
 
 		Iterator<Casella> iterator = this.caselle.iterator();
