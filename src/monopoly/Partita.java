@@ -52,7 +52,7 @@ public class Partita implements MovementListener{
 	
 	/**
 	 * Il metodo turno, che rappresenta il turno di un giocatore.
-	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantità corrispondente.
+	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantitÀÜ corrispondente.
 	 * Controlla se i dadi sono uguali, e in caso di risposta affermativa fa rilanciare i dadi.
 	 * Se si tirano dadi doppi per tre volte il metodo sposta il giocatore in prigione.
 	 * 
@@ -133,7 +133,7 @@ public class Partita implements MovementListener{
 					break;
 				default:
 					if(c.getProprieta() != null){
-						System.out.println("La proprietà è acquistabile?");
+						System.out.println(" La proprieta' e' acquistabile?");
 						if(c.getProprieta().getProprietario() == null){
 								acquistaProprieta(g, c.getProprieta());
 						}
@@ -170,12 +170,12 @@ public class Partita implements MovementListener{
 		try{
 			Banca.versamento(g, p.getValore());
 		}catch(FallimentoException e){
-			System.out.println("Fondi non sufficienti");
+			System.out.println(" Fondi non sufficienti");
 			return;
 		}
 		g.aggiungiProprieta(p);
 		p.setProprietario(g);
-		System.out.println(g.getNome()+" ha acquistato "+p.getCasella().getNome());
+		System.out.println("["+g.getNome()+"]"+" ha acquistato "+p.getCasella().getNome());
 		
 		
 		

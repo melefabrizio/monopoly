@@ -155,11 +155,11 @@ public class Monopoly {
 				try{
 					gioca(db);
 				}catch (SQLException e){
-					System.out.println("Si ÔøΩ verificato un errore nel Database.");
+					System.out.println("Si e' verificato un errore nel Database.");
 					System.out.println(e.getMessage());
 
 				}catch(ClassNotFoundException e){
-					System.out.println("Si ÔøΩ verificato un errore nella libreria SQL.");
+					System.out.println("Si e' verificato un errore nella libreria SQL.");
 					System.out.println(e.getMessage());
 
 				}
@@ -199,7 +199,7 @@ public class Monopoly {
 		}
 		
 		if(vincitori.size()==1){
-			System.out.println("Il vincitore è "+vincitori.get(0).getNome()+
+			System.out.println("Il vincitore e' "+vincitori.get(0).getNome()+
 					", con un capitale finale di "+vincitori.get(0).getCapitale()+" euro");
 		}else{
 			StringBuffer b = new StringBuffer();
