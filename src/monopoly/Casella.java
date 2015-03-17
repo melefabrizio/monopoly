@@ -46,7 +46,7 @@ public class Casella {
 		listener.onHop(g, this);
 		
 	}
-	public void stop(Giocatore g){
+	public void stop(Giocatore g) throws FallimentoException{
 		
 		giocatori.add(g);
 		g.setNumeroCasella(this.id);

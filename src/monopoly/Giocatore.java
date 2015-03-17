@@ -165,7 +165,7 @@ public class Giocatore {
 	}
 	public boolean possiedeDueSocieta(){
 		return possiede("Societa Elettrica") && possiede("Societa Acqua Potabile");
-		
+		 
 	}
 
 	

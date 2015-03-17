@@ -62,7 +62,7 @@ public class Tabellone {
 //		sposta(g, newPos);
 //
 //	}
-	public void avanza(Giocatore g, int avanzamento) {
+	public void avanza(Giocatore g, int avanzamento) throws FallimentoException{
 
 		int posCorrente = g.getNumeroCasella();
 		int newPos = posCorrente + avanzamento;
@@ -86,7 +86,7 @@ public class Tabellone {
 	 * @param newCasella
 	 *            L'id della casella di destinazione 
 	 */
-	private void sposta(Giocatore g, int newCasella) {
+	private void sposta(Giocatore g, int newCasella)  throws FallimentoException{
 
 		boolean rimosso = false;
 		boolean inserito = false;
@@ -119,7 +119,7 @@ public class Tabellone {
 		
 
 	}
-public void spostaDiretto(Giocatore g, int newCasella) {	
+public void spostaDiretto(Giocatore g, int newCasella) throws FallimentoException{	
 	
 	
 	for (Casella casella : this.caselle) {

@@ -57,7 +57,7 @@ public class Partita implements MovementListener{
 	 * Se si tirano dadi doppi per tre volte il metodo sposta il giocatore in prigione.
 	 * 
 	 */
-	public void turno(){
+	public void turno() throws FallimentoException{
 		
 		
 
@@ -118,7 +118,7 @@ public class Partita implements MovementListener{
 	}
 
 	@Override
-	public void onStop(Giocatore g, Casella c) {
+	public void onStop(Giocatore g, Casella c) throws FallimentoException {
 		try{
 			switch(c.getId()){
 		
@@ -160,9 +160,13 @@ public class Partita implements MovementListener{
 
 	}
 
-	private void handleFallimento(FallimentoException f) {
+	private void handleFallimento(FallimentoException f) throws FallimentoException{
+		
 		f.toString();
-		this.giocatori.remove(f.getGiocatore());
+		System.out.println(f.getGiocatore().getNome()+" è fallito!");
+		System.out.println("La banca rimborsa "+f.getRimborso()+ " a "+f.getRimborsando().getNome());
+		//Banca.prelievo(f.getRimborsando(), f.getRimborso());
+		throw f;
 		
 	}
 	
@@ -179,6 +183,10 @@ public class Partita implements MovementListener{
 		
 		
 		
+	}
+	
+	public void rimuoviGiocatore(Giocatore g){
+		this.giocatori.remove(g);
 	}
 	
 	

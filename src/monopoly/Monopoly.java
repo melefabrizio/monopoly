@@ -34,7 +34,7 @@ public class Monopoly {
 	/** La costante Numero Turni */
 	private static final int NUMERO_TURNI = 20;
 	
-	private static final int CAPITALE_INIZIALE = 5000; 
+	private static final int CAPITALE_INIZIALE = 500; 
 
 	// Menu
 
@@ -76,7 +76,6 @@ public class Monopoly {
 					.printf("Attualmente ci sono %d giocatori.\nCi devono essere almeno 2 giocatori per giocare!\n",
 							players.size());
 		}
-
 		else {
 			Collections.shuffle(players);
 			Partita parta = new Partita(database, players);
@@ -87,10 +86,15 @@ public class Monopoly {
 			}
 
 			int turno = 0;
-			while (turno < NUMERO_TURNI * players.size()) {
+			while (turno < NUMERO_TURNI * players.size() && players.size()>1) {
 				if (turno %players.size() == 0)
 					System.out.printf("Turno %d \n", ((turno + 1)/players.size())+1);
-				parta.turno();
+				try{
+					parta.turno();
+				}catch (FallimentoException e){
+					players.remove(e.getGiocatore());
+					parta.rimuoviGiocatore(e.getGiocatore());
+				}
 				turno += 1;
 				try{
 					System.in.read();
@@ -129,7 +133,7 @@ public class Monopoly {
 		try{
 			 db = new DBManager();
 		}catch (Exception e){
-			System.out.println("Si � verificato un errore nella connessione al Database.");
+			System.out.println("Si e' verificato un errore nella connessione al Database.");
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
