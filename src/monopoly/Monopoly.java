@@ -48,7 +48,7 @@ public class Monopoly {
 
 	/** La costante VOCIMENU. */
 	final static String[] VOCIMENU = { "Inserisci Nuovo Giocatore",
-			"Stampa elenco giocatori", "Gioca" };
+			"Stampa Elenco Giocatori", "Gioca", "Rimuovi Giocatore" };
 
 	/**
 	 * Il metodo benvenuto che saluta l'utente.
@@ -168,6 +168,9 @@ public class Monopoly {
 
 				}
 				break;
+				
+			case 4: rimuoviGiocatore(players);
+				break;
 
 			case 0:
 				continuaCiclo = false;
@@ -186,6 +189,13 @@ public class Monopoly {
 	private static void saluti() {
 		UtilityIO.header(MSG_CHIUSURA, SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
+	}
+	
+	private static void rimuoviGiocatore(Vector<Giocatore> giocatori)
+	{
+		stampaGiocatori(giocatori);
+		//System.out.println("\nChe giocatore vuoi eliminare?\n");
+		players.remove(giocatori);
 	}
 	
 	private static void proclamaVincitore(){
