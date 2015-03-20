@@ -181,6 +181,9 @@ public class Partita implements MovementListener, CarteListener{
 		System.out.println(f.getGiocatore().getNome()+" è fallito!");
 		System.out.println("La banca rimborsa "+f.getRimborso()+ " a "+f.getRimborsando().getNome());
 		//Banca.prelievo(f.getRimborsando(), f.getRimborso());
+		for(Proprieta p:f.getGiocatore().getProprieta()){
+			p.setProprietario(null);
+		} 
 		throw f;
 		
 	}
