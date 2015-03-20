@@ -80,6 +80,7 @@ public class Casella {
 	 */
 	public void rimuovi(Giocatore g){
 		giocatori.remove(g);
+		
 	}
 	
 	/**

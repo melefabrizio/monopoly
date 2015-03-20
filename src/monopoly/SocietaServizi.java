@@ -18,7 +18,7 @@ public class SocietaServizi extends Proprieta {
 		//System.out.println((this.getProprietario().possiedeDueSocieta()?Partita.MOLTIPLICATORE_SOCIETA_DUE
 		//		:Partita.MOLTIPLICATORE_SOCIETA_UNA));
 
-		return e.getUltimoLancio()*this.getValore()*
+		return e.getUltimoLancio()*
 				(this.getProprietario().possiedeDueSocieta()?Partita.MOLTIPLICATORE_SOCIETA_DUE
 						:Partita.MOLTIPLICATORE_SOCIETA_UNA);
 		

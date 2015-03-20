@@ -44,11 +44,11 @@ public class Monopoly {
 	/** La costante SIMBOLO_MESSAGGIO_BENV_USCITA. */
 	private final static char SIMBOLO_MESSAGGIO_BENV_USCITA = '~';
 	/** La costante TITOLO_MENU. */
-	final static String TITOLO_MENU = "Menù Monopoly";
+	final static String TITOLO_MENU = "Menu' Monopoly";
 
 	/** La costante VOCIMENU. */
 	final static String[] VOCIMENU = { "Inserisci Nuovo Giocatore",
-			"Stampa Elenco Giocatori", "Gioca", "Rimuovi Giocatore" };
+			"Stampa Elenco Giocatori", "Gioca", "Rimuovi Giocatore" , "Reset"};
 
 	/**
 	 * Il metodo benvenuto che saluta l'utente.
@@ -171,6 +171,10 @@ public class Monopoly {
 				
 			case 4: rimuoviGiocatore(players);
 				break;
+				
+			case 5: 
+				reset();
+				break;
 
 			case 0:
 				continuaCiclo = false;
@@ -183,6 +187,14 @@ public class Monopoly {
 
 	}
 
+	private static void reset() {
+		
+		players = new Vector<Giocatore>();
+		
+		
+		
+	}
+
 	/**
 	 * Il metodo saluti che saluta l'utente che sta per chiudere il programma
 	 */
@@ -191,11 +203,19 @@ public class Monopoly {
 		System.out.println();
 	}
 	
-	private static void rimuoviGiocatore(Vector<Giocatore> giocatori)
-	{
-		stampaGiocatori(giocatori);
-		//System.out.println("\nChe giocatore vuoi eliminare?\n");
-		players.remove(giocatori);
+	private static void rimuoviGiocatore(Vector<Giocatore> giocatori){
+		
+		String[] voci_giocatori = new String[players.size()];
+		int i =0;
+		for(Giocatore g:giocatori){
+			voci_giocatori[i] = g.toString();
+			i++;
+		}
+		MyMenu menuGiocatori = new MyMenu("Rimozione Giocatori", voci_giocatori);
+		int scelta = menuGiocatori.scegli();
+		if(scelta>0){
+			players.remove(scelta-1);
+		}
 	}
 	
 	private static void proclamaVincitore(){

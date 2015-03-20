@@ -113,13 +113,13 @@ public class Giocatore {
 	}
 	
 	public String toString(){
-		
-		StringBuffer output=new StringBuffer();
-			
-			output.append("Il giocatore "+this.nome+" possiede "+ this.getCapitale()+"€");
-			
-			return output.toString();
-		
+		return nome+"["+capitale+"e]";
+//		StringBuffer output=new StringBuffer();
+//			
+//			output.append("Il giocatore "+this.nome+" possiede "+ this.getCapitale()+"€");
+//			
+//			return output.toString();
+//		
 		
 	}
 	

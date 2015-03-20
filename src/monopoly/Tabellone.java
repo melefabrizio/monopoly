@@ -119,30 +119,22 @@ public class Tabellone {
 		
 
 	}
-public void spostaDiretto(Giocatore g, int newCasella) throws FallimentoException{	
+	public void spostaDiretto(Giocatore g, int newCasella) throws FallimentoException{	
+		
+		
+		for (Casella casella : this.caselle) {
 	
+			if (casella.staziona(g)) {
+				casella.rimuovi(g);
 	
-	for (Casella casella : this.caselle) {
-
-		if (casella.staziona(g)) {
-			casella.rimuovi(g);
-
+			}
+			if(casella.getId() == newCasella){
+				casella.stop(g);
+			}
 		}
+	
 	}
 
-	for (Casella casella : this.caselle) {
-
-		if (casella.getId() == newCasella) {
-			//casella.inserisci(g);
-			casella.stop(g);
-		}
-
-	}
-	
-	
-	
-
-}
 	public void posiziona(Giocatore g, int pos) {
 
 		Iterator<Casella> iterator = this.caselle.iterator();
