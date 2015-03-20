@@ -95,6 +95,7 @@ public class Monopoly {
 				try{
 					parta.turno();
 				}catch (FallimentoException e){
+					
 					players.remove(e.getGiocatore());
 					parta.rimuoviGiocatore(e.getGiocatore());
 				}

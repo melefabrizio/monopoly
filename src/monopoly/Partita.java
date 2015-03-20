@@ -19,6 +19,8 @@ public class Partita implements MovementListener, CarteListener{
 
 	public static final int MOLTIPLICATORE_SOCIETA_DUE = 10;
 
+	private static final int CAUZIONE_PRIGIONE = 0;
+
 	/** Il Database */
 	private DBManager db;
 	
@@ -81,6 +83,11 @@ public class Partita implements MovementListener, CarteListener{
 
 
 		do{
+			if(gCorrente.inPrigione()){
+				Banca.versamento(gCorrente, CAUZIONE_PRIGIONE);
+				gCorrente.inPrigione(false);
+			}
+			
 			Integer[] dadi = gCorrente.lanciaDadi();
 			ritira = false;
 			avanzamento = 0;
@@ -172,6 +179,7 @@ public class Partita implements MovementListener, CarteListener{
 	private void inPrigione(Giocatore g) {
 		try{
 			tabellone.spostaDiretto(g, Tabellone.PRIGIONE);
+			g.inPrigione(true);
 		}catch(Exception e){
 			
 		}
@@ -190,8 +198,10 @@ public class Partita implements MovementListener, CarteListener{
 		
 		f.toString();
 		System.out.println(f.getGiocatore().getNome()+" è fallito!");
-		System.out.println("La banca rimborsa "+f.getRimborso()+ " a "+f.getRimborsando().getNome());
-		//Banca.prelievo(f.getRimborsando(), f.getRimborso());
+		if(f.getRimborsando()!=null){
+			System.out.println("La banca rimborsa "+f.getRimborso()+ " a "+f.getRimborsando().getNome());
+			Banca.prelievo(f.getRimborsando(), f.getRimborso());
+		}
 		for(Proprieta p:f.getGiocatore().getProprieta()){
 			p.setProprietario(null);
 		} 
