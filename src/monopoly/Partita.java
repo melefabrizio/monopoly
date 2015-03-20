@@ -61,7 +61,7 @@ public class Partita implements MovementListener, CarteListener{
 	
 	/**
 	 * Il metodo turno, che rappresenta il turno di un giocatore.
-	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantitˆ corrispondente.
+	 * Fa lanciare i dadi al giocatore e lo fa avanzare della quantita' corrispondente.
 	 * Controlla se i dadi sono uguali, e in caso di risposta affermativa fa rilanciare i dadi.
 	 * Se si tirano dadi doppi per tre volte il metodo sposta il giocatore in prigione.
 	 * 

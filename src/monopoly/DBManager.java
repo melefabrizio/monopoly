@@ -6,7 +6,7 @@ import java.util.Vector;
 
 /**
  * DB Manager
- * Wrapper per SQLite
+ * Wrapper per il database SQLite.
  * 
  * 
  * @author Fabrizio Mele
@@ -15,6 +15,7 @@ import java.util.Vector;
 public class DBManager {
 	
 	Statement statement;
+	
 	/**
 	 * Costruttore di DBManager, inizializza la connessione al database
 	 * @throws ClassNotFoundException
@@ -63,14 +64,22 @@ public class DBManager {
 		rs.close();
 		return caselle;
 	}
-	
+	/**
+	 * Metodo che ritorna un oggetto Carte, contenente le probabilitˆ e gli imprevisti estratti dal database.
+	 * @return Un oggetto Carte inizializzato.
+	 * @throws SQLException
+	 */
 	public Carte getCarte() throws SQLException{
 		
 		
 		Carte carte = new Carte(getProbabilita(), getImprevisti());
 		return carte;
 	}
-	
+	/**
+	 * Estrae gli oggetti Probabilitˆ dal database
+	 * @return Un Vector di oggetti Probabilita
+	 * @throws SQLException
+	 */
 	private Vector<Probabilita> getProbabilita() throws SQLException{
 		Vector<Probabilita> p = new Vector<Probabilita>();
 		ResultSet rs = statement.executeQuery("select * from probabilita");
@@ -81,6 +90,11 @@ public class DBManager {
 		
 		return p;
 	}
+	/**
+	 * Estrae gli oggetti Imprevisto dal database
+	 * @return Un Vector di oggetti Imprevisto
+	 * @throws SQLException
+	 */
 	private Vector<Imprevisto> getImprevisti() throws SQLException{
 		Vector<Imprevisto> p = new Vector<Imprevisto>();
 		ResultSet rs = statement.executeQuery("select * from imprevisti");

@@ -7,22 +7,28 @@ import java.util.Vector;
  */
 public class Casella {
 
-	/** Attributo id. */
+	/** L'identificatore numerico della casella. */
 	private int id;
 	
-	/** Attributo nome. */
+	/** Il nome della casella. */
 	private String nome;
 	
-	/** Attributo prezzo. */
+	/** Il valore della casella in euro. */
 	private int prezzo;
-	
+	/**
+	 * L'oggetto MovementListener delegato della gestione di passaggi e fermate sulla casella.
+	 */
 	private MovementListener listener;
 	
-	/** Attributo giocatori. */
+	/** I giocatori presenti sulla casella. */
 	private Vector<Giocatore> giocatori;
-
+	/**
+	 * L'oggetto Proprietà corrispondente alla casella. Null se la casella non è un Terreno, una Stazione o una SocietàServizi.
+	 */
 	private Proprieta proprieta;
-
+	/**
+	 * Il tabellone su cui esiste la casella.
+	 */
 	private Tabellone tabellone;
 
 
@@ -41,11 +47,25 @@ public class Casella {
 		this.listener = null;
 	}
 	
+	/**
+	 * Metodo che cura il passaggo di un giocatore dalla casella.
+	 * 
+	 * @param g Il giocatore di passaggio
+	 * @throws FallimentoException
+	 */
 	public void hop(Giocatore g){
 		
 		listener.onHop(g, this);
 		
 	}
+	
+	/**
+	 * Metodo che cura la fermata di un giocatore sulla casella.
+	 * 
+	 * @param g Il giocatore da fermare.
+	 * @throws FallimentoException
+	 */
+	
 	public void stop(Giocatore g) throws FallimentoException{
 		
 		giocatori.add(g);
@@ -53,7 +73,10 @@ public class Casella {
 		listener.onStop(g, this);
 		
 	}
-	
+	/**
+	 * Imposta l'oggetto MovementListener per questa casella.
+	 * @param l L'oggetto MovementListener
+	 */
 	public void setMovementListener(MovementListener l){
 		this.listener = l;
 	}
@@ -62,7 +85,7 @@ public class Casella {
 	 * Ritorna vero se il giocatore è presente sulla casella.
 	 *
 	 * @param g il giocatore
-	 * @return Un boolean, true se il giocatore è presente sulla casella, false altrimenti.
+	 * @return Vero se il giocatore è presente sulla casella, falso altrimenti.
 	 */
 	public boolean staziona(Giocatore g){
 		for(Giocatore giocatore:giocatori){
@@ -147,35 +170,47 @@ public class Casella {
 	}
 	
 	/**
-	 * Getter dei giocatori presenti.
+	 * ì
 	 *
-	 * @return i giocatori presenti sulla casella
+	 * @return I giocatori presenti sulla casella
 	 */
 	public Vector<Giocatore> getGiocatori() {
 		return giocatori;
 	}
 
 	/**
-	 * Setta i giocatori.
+	 * Imposta i giocatori che stazionano sulla casella.
 	 *
-	 * @param giocatori i nuovi giocatori
+	 * @param giocatori I giocatori
 	 */
 	public void setGiocatori(Vector<Giocatore> giocatori) {
 		this.giocatori = giocatori;
 	}
-
+	/**
+	 * 
+	 * @return L'oggetto Proprietà corrispondente alla casella.
+	 */
 	public Proprieta getProprieta() {
 		return proprieta;
 	}
-
+	/**
+	 * Imposta l'oggetto Proprietà corrispondente alla casella.
+	 * @param proprieta
+	 */
 	public void setProprieta(Proprieta proprieta) {
 		this.proprieta = proprieta;
 	}
-	
+	/**
+	 * Imposta il tabellone su cui risiete la casella.
+	 * @param t Il tabellone
+	 */
 	public void setTabellone(Tabellone t){
 		this.tabellone = t;
 	}
-	
+	/**
+	 * 
+	 * @return Il tabellone su cui risiede la casella.
+	 */
 	public Tabellone getTabellone(){
 		return this.tabellone;
 	}
