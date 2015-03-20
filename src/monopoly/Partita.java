@@ -83,6 +83,7 @@ public class Partita implements MovementListener, CarteListener{
 
 
 		do{
+			System.out.println("************\n");
 			if(gCorrente.inPrigione()){
 				System.out.println("Prima di tirare i dati "+gCorrente+" paga 50e di cauzione.\n");
 				Banca.versamento(gCorrente, CAUZIONE_PRIGIONE);
@@ -110,7 +111,7 @@ public class Partita implements MovementListener, CarteListener{
 			
 			out.append(" a ");
 			out.append(
-					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n");
+					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"].");
 			System.out.println(out.toString());
 			System.out.println(outputBuffer.toString());
 			System.out.println("Il giocatore ha "+gCorrente.getCapitale()+" euro\n");
@@ -155,7 +156,7 @@ public class Partita implements MovementListener, CarteListener{
 					break;
 				default:
 					if(c.getProprieta() != null){
-						outputBuffer.append("La proprieta' e' acquistabile?\n");
+						//outputBuffer.append("La proprieta' e' acquistabile?\n");
 						if(c.getProprieta().getProprietario() == null){
 								acquistaProprieta(g, c.getProprieta());
 						}
@@ -191,7 +192,7 @@ public class Partita implements MovementListener, CarteListener{
 		Giocatore proprietario = c.getProprieta().getProprietario();
 		double affitto = c.getProprieta().calcolaAffitto(g);
 		Banca.trasferimento(g, proprietario, (int) affitto);
-		outputBuffer.append(g.getNome()+" ha pagato a "+proprietario.getNome()+ " "+affitto);
+		outputBuffer.append(g.getNome()+" paga a "+proprietario.getNome()+ " "+affitto);
 
 	}
 
@@ -214,7 +215,7 @@ public class Partita implements MovementListener, CarteListener{
 		try{
 			Banca.versamento(g, p.getValore());
 		}catch(FallimentoException e){
-			outputBuffer.append(" Fondi non sufficienti");
+			outputBuffer.append("Fondi non sufficienti");
 			return;
 		}
 		g.aggiungiProprieta(p);

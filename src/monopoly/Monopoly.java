@@ -91,7 +91,9 @@ public class Monopoly {
 			int turno = 0;
 			while (turno < NUMERO_TURNI * players.size() && players.size()>1) {
 				if (turno %players.size() == 0)
-					System.out.printf("Turno %d \n", ((turno + 1)/players.size())+1);
+					
+					System.out.printf("Turno %d", ((turno + 1)/players.size())+1);
+
 				try{
 					parta.turno();
 				}catch (FallimentoException e){
