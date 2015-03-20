@@ -32,6 +32,8 @@ public class Partita implements MovementListener, CarteListener{
 	/** L'iterator dei giocatori. */
 	private Iterator<Giocatore> iterator;
 	
+	private StringBuffer outputBuffer;
+	
 	/**
 	 * Costruttore di partita.
 	 *
@@ -50,6 +52,8 @@ public class Partita implements MovementListener, CarteListener{
 		for(Giocatore giocatore:this.giocatori){
 			tabellone.posiziona(giocatore, 0);
 		}
+		
+		outputBuffer = new StringBuffer();
 		
 	}
 	
@@ -83,21 +87,28 @@ public class Partita implements MovementListener, CarteListener{
 			avanzamento += dadi[0];
 			avanzamento += dadi[1];
 			
+			StringBuffer out = new StringBuffer();
 			
-			System.out.print("[" +gCorrente.getNome()+"]"+" lancia i dadi ed escono:  ");
-			System.out.print(+dadi[0]+" e "+dadi[1]+". ");
-			System.out.print(dadi[0] == dadi[1]?"Dadi doppi!\n":"\n");
+			out.append("[" +gCorrente.getNome()+"]"+" lancia i dadi ed escono:  "+dadi[0]+" e "+dadi[1]+". ");
+			
+			out.append(dadi[0] == dadi[1]?"Dadi doppi!\n":"\n");
 
-			System.out.print("Si muove da ");
-			System.out.print(
+			
+			out.append("Si muove da ");
+			out.append(
 					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]");
 			
 			tabellone.avanza(gCorrente, avanzamento);
 			
-			System.out.print(" a ");
-			System.out.print(
+			out.append(" a ");
+			out.append(
 					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"]. \n");
+			System.out.println(out.toString());
+			System.out.println(outputBuffer.toString());
 			System.out.println("Il giocatore ha "+gCorrente.getCapitale()+" euro\n");
+			
+			
+			outputBuffer = new StringBuffer();
 			if(dadi[0]==dadi[1]){
 				ritira = true;
 				ripetizione++;
@@ -136,7 +147,7 @@ public class Partita implements MovementListener, CarteListener{
 					break;
 				default:
 					if(c.getProprieta() != null){
-						System.out.println(" La proprieta' e' acquistabile?");
+						outputBuffer.append("La proprieta' e' acquistabile?\n");
 						if(c.getProprieta().getProprietario() == null){
 								acquistaProprieta(g, c.getProprieta());
 						}
@@ -171,7 +182,7 @@ public class Partita implements MovementListener, CarteListener{
 		Giocatore proprietario = c.getProprieta().getProprietario();
 		double affitto = c.getProprieta().calcolaAffitto(g);
 		Banca.trasferimento(g, proprietario, (int) affitto);
-		System.out.println(g.getNome()+" ha pagato a "+proprietario.getNome()+ " "+affitto);
+		outputBuffer.append(g.getNome()+" ha pagato a "+proprietario.getNome()+ " "+affitto);
 
 	}
 
@@ -192,12 +203,12 @@ public class Partita implements MovementListener, CarteListener{
 		try{
 			Banca.versamento(g, p.getValore());
 		}catch(FallimentoException e){
-			System.out.println(" Fondi non sufficienti");
+			outputBuffer.append(" Fondi non sufficienti");
 			return;
 		}
 		g.aggiungiProprieta(p);
 		p.setProprietario(g);
-		System.out.println("["+g.getNome()+"]"+" ha acquistato "+p.getCasella().getNome());
+		outputBuffer.append("["+g.getNome()+"]"+" ha acquistato "+p.getCasella().getNome());
 		
 		
 		
@@ -209,8 +220,8 @@ public class Partita implements MovementListener, CarteListener{
 
 	@Override
 	public void onProbabilita(Giocatore g, Probabilita p) throws FallimentoException {
-		System.out.println(g+" pesca una carta Probabilita'");
-		System.out.println(p);
+		outputBuffer.append(g+" pesca una carta Probabilita'\n");
+		outputBuffer.append(p);
 		switch(p.getId()){
 			case 1:
 				try{
@@ -250,8 +261,8 @@ public class Partita implements MovementListener, CarteListener{
 
 	@Override
 	public void onImprevisti(Giocatore g, Imprevisto i) throws FallimentoException {
-		System.out.println(g+" pesca una carta Imprevisti'");
-		System.out.println(i);
+		outputBuffer.append(g+" pesca una carta Imprevisti'\n");
+		outputBuffer.append(i);
 		switch(i.getId()){
 			case 1:
 				try{
