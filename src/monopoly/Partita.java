@@ -9,6 +9,16 @@ import java.util.Vector;
  */
 public class Partita implements MovementListener, CarteListener{
 	
+	private static final int PROB_6_CAUSA = 250;
+
+	private static final int PROB_5_CREDITO_BANCA = 500;
+
+	private static final int PROB_3_PREMIO_ASS = 125;
+
+	public static final int PROB_2_CEDOLA = 60;
+
+	public static final int PROB_8_REGALO = 25;
+
 	public static final int IMPORTO_INIZIALE = 5000;
 
 	private static final int IMPORTO_VIA = 500;
@@ -243,19 +253,19 @@ public class Partita implements MovementListener, CarteListener{
 				}
 				break;
 			case 2:
-				Banca.prelievo(g, 60);
+				Banca.prelievo(g, PROB_2_CEDOLA);
 				break;
 			case 3:
-				Banca.versamento(g, 125);
+				Banca.versamento(g, PROB_3_PREMIO_ASS);
 				break;
 			case 4:
 				tabellone.sposta(g, Tabellone.VIA);
 				break;
 			case 5:
-				Banca.prelievo(g, 500);
+				Banca.prelievo(g, PROB_5_CREDITO_BANCA);
 				break;
 			case 6:
-				Banca.versamento(g, 250);
+				Banca.versamento(g, PROB_6_CAUSA);
 				break;
 			case 7:
 				inPrigione(g);
@@ -263,7 +273,7 @@ public class Partita implements MovementListener, CarteListener{
 			case 8:
 				for(Giocatore giocatore: giocatori){
 					if(!giocatore.equals(g))
-						Banca.trasferimento(giocatore, g, 25);
+						Banca.trasferimento(giocatore, g, PROB_8_REGALO);
 					
 				}
 				
