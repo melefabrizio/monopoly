@@ -22,6 +22,9 @@ public class Giocatore {
 	private Vector<Proprieta> possedimenti;
 	
 	private int ultimoLancio;
+	
+	private boolean inPrigione;
+	
 	public Vector<Proprieta> getPossedimenti() {
 		return possedimenti;
 	}
@@ -48,6 +51,7 @@ public class Giocatore {
 			this.nome=nome;
 			this.numeroCasella=0;
 			possedimenti = new Vector<Proprieta>();
+			inPrigione = false;
 	}
 	
 	/**
@@ -167,7 +171,14 @@ public class Giocatore {
 		return possiede("Societa Elettrica") && possiede("Societa Acqua Potabile");
 		 
 	}
+	
+	public boolean inPrigione(){
+		return inPrigione;
+	}
 
+	public void inPrigione(boolean inPrigione){
+		this.inPrigione = inPrigione;
+	}
 	
 	
 	
