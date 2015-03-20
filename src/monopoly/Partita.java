@@ -19,7 +19,7 @@ public class Partita implements MovementListener, CarteListener{
 
 	public static final int MOLTIPLICATORE_SOCIETA_DUE = 10;
 
-	private static final int CAUZIONE_PRIGIONE = 0;
+	private static final int CAUZIONE_PRIGIONE = 50;
 
 	/** Il Database */
 	private DBManager db;
@@ -84,6 +84,7 @@ public class Partita implements MovementListener, CarteListener{
 
 		do{
 			if(gCorrente.inPrigione()){
+				System.out.println("Prima di tirare i dati "+gCorrente+" paga 50e di cauzione.\n");
 				Banca.versamento(gCorrente, CAUZIONE_PRIGIONE);
 				gCorrente.inPrigione(false);
 			}
