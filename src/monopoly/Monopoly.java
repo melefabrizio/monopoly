@@ -56,6 +56,7 @@ public class Monopoly {
 	private static void benvenuto() {
 		UtilityIO.header(MSG_BENVENUTO, SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
+		
 	}
 
 	/**
@@ -79,6 +80,8 @@ public class Monopoly {
 		else {
 			Collections.shuffle(players);
 			Partita parta = new Partita(database, players);
+			
+			
 			
 			for(Giocatore p : players){
 				Banca.prelievo(p, CAPITALE_INIZIALE);
@@ -255,7 +258,9 @@ public class Monopoly {
 	 *            i giocatori
 	 */
 	private static void stampaGiocatori(Vector<Giocatore> giocatori) {
-
+		if(giocatori.size()==0){
+			System.out.println("\nNon ci sono giocatori\n");
+		}
 		int i = 0;
 
 		for (Giocatore g : giocatori) {

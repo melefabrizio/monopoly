@@ -23,6 +23,10 @@ public class Tabellone {
 	public static final int T_LUSSO_I = 10;
 	public static final int T_PATRIMONIALE_I = 250;
 
+	public static final int VICOLO_CORTO = 1;
+	public static final int LARGO_COLOMBO = 24;
+	public static final int VIA_ACCADEMIA = 11;
+
 	/** Le caselle. */
 	private LinkedList<Casella> caselle;
 
@@ -86,7 +90,7 @@ public class Tabellone {
 	 * @param newCasella
 	 *            L'id della casella di destinazione 
 	 */
-	private void sposta(Giocatore g, int newCasella)  throws FallimentoException{
+	public void sposta(Giocatore g, int newCasella)  throws FallimentoException{
 
 		boolean rimosso = false;
 		boolean inserito = false;

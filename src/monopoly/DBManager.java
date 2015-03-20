@@ -2,6 +2,7 @@ package monopoly;
 
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.Vector;
 
 /**
  * DB Manager
@@ -35,15 +36,23 @@ public class DBManager {
 		ResultSet rs = statement.executeQuery("select * from caselle");
 		while(rs.next()){
 			
-			Casella nuova = new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
+			Casella nuova;
+			if(!(rs.getString("nome").equals("Probabilitˆ") || rs.getString("nome").equals("Imprevisti")))
+					nuova = new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
+			else{
+				if(rs.getString("nome").equals("Probabilitˆ"))
+					nuova = new CasellaProbabilita(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
+				else
+					nuova = new CasellaImprevisto(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
+			}
 			Proprieta prop;
-			System.out.println(rs.getString("terreno")+ " "+rs.getString("nome")+" "+rs.getString("colore"));
 			if(rs.getString("terreno").equals("true"))		
 					prop = new Terreno(nuova, nuova.getPrezzo(), Colori.valueOf(Colori.class, rs.getString("colore").trim()));		
 			else if(rs.getString("stazione").equals("true"))
 				prop = new Stazione(nuova, nuova.getPrezzo(), Cardinali.valueOf(Cardinali.class, rs.getString("cardinale")));
 			else if(rs.getString("societa").equals("true"))
 				prop = new SocietaServizi(nuova, nuova.getPrezzo());
+			
 			else
 				prop = null;
 			
@@ -53,5 +62,33 @@ public class DBManager {
 		}
 		rs.close();
 		return caselle;
+	}
+	
+	public Carte getCarte() throws SQLException{
+		
+		
+		Carte carte = new Carte(getProbabilita(), getImprevisti());
+		return carte;
+	}
+	
+	private Vector<Probabilita> getProbabilita() throws SQLException{
+		Vector<Probabilita> p = new Vector<Probabilita>();
+		ResultSet rs = statement.executeQuery("select * from probabilita");
+		while(rs.next()){
+			Probabilita nuova = new Probabilita(rs.getInt("id"), rs.getString("descrizione"));
+			p.add(nuova);
+		}
+		
+		return p;
+	}
+	private Vector<Imprevisto> getImprevisti() throws SQLException{
+		Vector<Imprevisto> p = new Vector<Imprevisto>();
+		ResultSet rs = statement.executeQuery("select * from imprevisti");
+		while(rs.next()){
+			Imprevisto nuova = new Imprevisto(rs.getInt("id"), rs.getString("descrizione"));
+			p.add(nuova);
+		}
+		
+		return p;
 	}
 }

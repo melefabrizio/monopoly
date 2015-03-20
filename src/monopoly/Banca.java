@@ -27,7 +27,7 @@ public class Banca {
 		
 	}
 	
-	public static void trasferisciABanca(Giocatore g, int importo) throws FallimentoException{
+	public static void trasferisciABanca(Giocatore g, int importo) {
 		g.setCapitale(g.getCapitale()-importo);
 		
 	}

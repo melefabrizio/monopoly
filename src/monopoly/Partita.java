@@ -7,7 +7,7 @@ import java.util.Vector;
 /**
  * La classe che rappresenta una Partita.
  */
-public class Partita implements MovementListener{
+public class Partita implements MovementListener, CarteListener{
 	
 	public static final int IMPORTO_INIZIALE = 5000;
 
@@ -28,6 +28,7 @@ public class Partita implements MovementListener{
 	/** Il tabellone. */
 	private Tabellone tabellone;
 	
+	private Carte carte;
 	/** L'iterator dei giocatori. */
 	private Iterator<Giocatore> iterator;
 	
@@ -43,6 +44,8 @@ public class Partita implements MovementListener{
 		this.giocatori = giocatori;
 		tabellone = new Tabellone(db);
 		tabellone.setMovementListener(this);
+		carte = db.getCarte();
+		carte.setListener(this);
 		iterator = this.giocatori.iterator(); 
 		for(Giocatore giocatore:this.giocatori){
 			tabellone.posiziona(giocatore, 0);
@@ -102,7 +105,7 @@ public class Partita implements MovementListener{
 				System.out.println("Ritira!");
 			}
 			if(ripetizione == 3){
-				tabellone.spostaDiretto(gCorrente, Tabellone.PRIGIONE);
+				inPrigione(gCorrente);
 				System.out.println("In prigione!");
 				ritira=false;
 			}
@@ -123,7 +126,7 @@ public class Partita implements MovementListener{
 			switch(c.getId()){
 		
 				case Tabellone.IN_PRIGIONE:
-					tabellone.spostaDiretto(g, Tabellone.PRIGIONE);
+					inPrigione(g);
 					break;
 				case Tabellone.T_LUSSO:
 					Banca.versamento(g, Tabellone.T_LUSSO_I);
@@ -143,12 +146,24 @@ public class Partita implements MovementListener{
 							
 						}
 						
+					}else if(c.getClass().equals(CasellaImprevisto.class)){
+						carte.pescaImprevisto(g);
+					}else if(c.getClass().equals(CasellaProbabilita.class)){
+						carte.pescaProbabilita(g);
 					}
 			}
 		}catch(FallimentoException f){
 			handleFallimento(f);
 		}
 		
+	}
+
+	private void inPrigione(Giocatore g) {
+		try{
+			tabellone.spostaDiretto(g, Tabellone.PRIGIONE);
+		}catch(Exception e){
+			
+		}
 	}
 
 	private void calcolaPassaggio(Giocatore g, Casella c)
@@ -188,7 +203,90 @@ public class Partita implements MovementListener{
 	public void rimuoviGiocatore(Giocatore g){
 		this.giocatori.remove(g);
 	}
+
+	@Override
+	public void onProbabilita(Giocatore g, Probabilita p) throws FallimentoException {
+		System.out.println(g+" pesca una carta Probabilita'");
+		System.out.println(p);
+		switch(p.getId()){
+			case 1:
+				try{
+					tabellone.spostaDiretto(g, Tabellone.VICOLO_CORTO);
+				}catch(FallimentoException e){
+					handleFallimento(e);
+				}
+				break;
+			case 2:
+				Banca.prelievo(g, 60);
+				break;
+			case 3:
+				Banca.versamento(g, 125);
+				break;
+			case 4:
+				tabellone.sposta(g, Tabellone.VIA);
+				break;
+			case 5:
+				Banca.prelievo(g, 500);
+				break;
+			case 6:
+				Banca.versamento(g, 250);
+				break;
+			case 7:
+				inPrigione(g);
+				break;
+			case 8:
+				for(Giocatore giocatore: giocatori){
+					if(!giocatore.equals(g))
+						Banca.trasferimento(giocatore, g, 25);
+					
+				}
+				
+		}
+		
+	}
+
+	@Override
+	public void onImprevisti(Giocatore g, Imprevisto i) throws FallimentoException {
+		System.out.println(g+" pesca una carta Imprevisti'");
+		System.out.println(i);
+		switch(i.getId()){
+			case 1:
+				try{
+					tabellone.spostaDiretto(g, Tabellone.LARGO_COLOMBO);
+				}catch(FallimentoException e){
+					handleFallimento(e);
+				}
+				break;
+			case 2:
+				inPrigione(g);
+				break;
+			case 3:
+				tabellone.avanza(g, -3);
+				break;
+			case 4:
+				try{
+					tabellone.spostaDiretto(g, Tabellone.VIA_ACCADEMIA);
+				}catch(FallimentoException e){
+					handleFallimento(e);
+				}
+				break;
+			case 5:
+				Banca.versamento(g, 50);
+				break;
+			case 6:
+				Banca.prelievo(g, 375);
+				break;
+			case 7:
+				Banca.prelievo(g, 125);
+				break;
+			case 8:
+				tabellone.sposta(g, Tabellone.VIA);
+				break;
+				
+		}
+		
+	}
 	
-	
+
 	
 }
