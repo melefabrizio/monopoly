@@ -123,6 +123,7 @@ public class Partita implements MovementListener, CarteListener{
 			out.append(
 					tabellone.getCasella(gCorrente).getNome()+"["+tabellone.getCasella(gCorrente).getId()+"].");
 			System.out.println(out.toString());
+			
 			System.out.println(outputBuffer.toString());
 			System.out.println("Il giocatore ha "+gCorrente.getCapitale()+" euro\n");
 			

@@ -38,10 +38,10 @@ public class DBManager {
 		while(rs.next()){
 			
 			Casella nuova;
-			if(!(rs.getString("nome").equals("Probabilitˆ") || rs.getString("nome").equals("Imprevisti")))
+			if(!(rs.getString("nome").equals("Probabilita'") || rs.getString("nome").equals("Imprevisti")))
 					nuova = new Casella(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
 			else{
-				if(rs.getString("nome").equals("Probabilitˆ"))
+				if(rs.getString("nome").equals("Probabilita'"))
 					nuova = new CasellaProbabilita(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));
 				else
 					nuova = new CasellaImprevisto(rs.getInt("id"),rs.getString("nome"), rs.getInt("prezzo"));

@@ -34,7 +34,7 @@ public class Monopoly {
 	/** La costante Numero Turni */
 	private static final int NUMERO_TURNI = 20;
 	
-	private static final int CAPITALE_INIZIALE = 500; 
+	private static final int CAPITALE_INIZIALE = 5000; 
 
 	// Menu
 
