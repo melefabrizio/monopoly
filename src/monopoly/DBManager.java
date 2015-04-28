@@ -23,7 +23,7 @@ public class DBManager {
 	 */
 	public DBManager() throws ClassNotFoundException, SQLException{
 		Class.forName("org.sqlite.JDBC");
-		 Connection conn = DriverManager.getConnection("jdbc:sqlite:src/mono.db"); 
+		 Connection conn = DriverManager.getConnection("jdbc:sqlite::resource:mono.db"); 
 		 this.statement = conn.createStatement();
 	}
 	/**
