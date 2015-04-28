@@ -22,8 +22,14 @@ public class Banca {
 	 * @throws FallimentoException 
 	 */
 	public static void versamento(Giocatore g, int importo) throws FallimentoException{
+		checkFallimento(g, importo);
 		g.setCapitale(g.getCapitale()-importo);
-		checkFallimento(g);
+		
+	}
+	
+	public static void trasferisciABanca(Giocatore g, int importo) {
+		g.setCapitale(g.getCapitale()-importo);
+		
 	}
 	/**
 	 * Metodo per eseguire un prelievo dalla banca da parte del giocatore
@@ -48,9 +54,10 @@ public class Banca {
 	 * @throws FallimentoException 
 	 */
 	public static void trasferimento(Giocatore mittente, Giocatore destinatario, int importo) throws FallimentoException{
-		prelievo(mittente, importo);
-		versamento(destinatario, importo);
-		checkFallimento(mittente);
+		trasferisciABanca(mittente, importo);
+		prelievo(destinatario, importo);
+		checkFallimento(mittente, destinatario, importo);
+		
 
 	}
 	
@@ -66,9 +73,17 @@ public class Banca {
 		}
 	}
 	
-	public static void checkFallimento(Giocatore g) throws FallimentoException{
-		if(g.getCapitale()<=0)
-			throw new FallimentoException(g);
+	public static void checkFallimento(Giocatore g, Giocatore r, int importo) throws FallimentoException{
+		if(g.getCapitale()-importo<=0){
+			FallimentoException f = new FallimentoException(g,r,importo);
+			throw f;
+		}
+	}
+	public static void checkFallimento(Giocatore g, int importo) throws FallimentoException{
+		if(g.getCapitale()-importo<=0){
+			FallimentoException f = new FallimentoException(g,null, importo);
+			throw f;
+		}
 	}
 
 }

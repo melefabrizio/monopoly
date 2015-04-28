@@ -44,11 +44,11 @@ public class Monopoly {
 	/** La costante SIMBOLO_MESSAGGIO_BENV_USCITA. */
 	private final static char SIMBOLO_MESSAGGIO_BENV_USCITA = '~';
 	/** La costante TITOLO_MENU. */
-	final static String TITOLO_MENU = "Men√π Monopoly";
+	final static String TITOLO_MENU = "Menu' Monopoly";
 
 	/** La costante VOCIMENU. */
 	final static String[] VOCIMENU = { "Inserisci Nuovo Giocatore",
-			"Stampa elenco giocatori", "Gioca" };
+			"Stampa Elenco Giocatori", "Gioca", "Rimuovi Giocatore" , "Reset"};
 
 	/**
 	 * Il metodo benvenuto che saluta l'utente.
@@ -56,6 +56,7 @@ public class Monopoly {
 	private static void benvenuto() {
 		UtilityIO.header(MSG_BENVENUTO, SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
+		
 	}
 
 	/**
@@ -76,10 +77,11 @@ public class Monopoly {
 					.printf("Attualmente ci sono %d giocatori.\nCi devono essere almeno 2 giocatori per giocare!\n",
 							players.size());
 		}
-
 		else {
 			Collections.shuffle(players);
 			Partita parta = new Partita(database, players);
+			
+			
 			
 			for(Giocatore p : players){
 				Banca.prelievo(p, CAPITALE_INIZIALE);
@@ -87,11 +89,24 @@ public class Monopoly {
 			}
 
 			int turno = 0;
-			while (turno < NUMERO_TURNI * players.size()) {
+			while (turno < NUMERO_TURNI * players.size() && players.size()>1) {
 				if (turno %players.size() == 0)
-					System.out.printf("Turno %d \n", ((turno + 1)/players.size())+1);
-				parta.turno();
+					
+					System.out.printf("Turno %d\n", ((turno + 1)/players.size())+1);
+
+				try{
+					parta.turno();
+				}catch (FallimentoException e){
+					
+					players.remove(e.getGiocatore());
+					parta.rimuoviGiocatore(e.getGiocatore());
+				}
 				turno += 1;
+				try{
+					System.in.read();
+				}catch(Exception e){
+					
+				}
 			}
 
 		}
@@ -124,7 +139,7 @@ public class Monopoly {
 		try{
 			 db = new DBManager();
 		}catch (Exception e){
-			System.out.println("Si ÔøΩ verificato un errore nella connessione al Database.");
+			System.out.println("Si e' verificato un errore nella connessione al Database.");
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
@@ -150,14 +165,21 @@ public class Monopoly {
 				try{
 					gioca(db);
 				}catch (SQLException e){
-					System.out.println("Si ÔøΩ verificato un errore nel Database.");
+					System.out.println("Si e' verificato un errore nel Database.");
 					System.out.println(e.getMessage());
 
 				}catch(ClassNotFoundException e){
-					System.out.println("Si ÔøΩ verificato un errore nella libreria SQL.");
+					System.out.println("Si e' verificato un errore nella libreria SQL.");
 					System.out.println(e.getMessage());
 
 				}
+				break;
+				
+			case 4: rimuoviGiocatore(players);
+				break;
+				
+			case 5: 
+				reset();
 				break;
 
 			case 0:
@@ -171,12 +193,35 @@ public class Monopoly {
 
 	}
 
+	private static void reset() {
+		
+		players = new Vector<Giocatore>();
+		
+		
+		
+	}
+
 	/**
 	 * Il metodo saluti che saluta l'utente che sta per chiudere il programma
 	 */
 	private static void saluti() {
 		UtilityIO.header(MSG_CHIUSURA, SIMBOLO_MESSAGGIO_BENV_USCITA);
 		System.out.println();
+	}
+	
+	private static void rimuoviGiocatore(Vector<Giocatore> giocatori){
+		
+		String[] voci_giocatori = new String[players.size()];
+		int i =0;
+		for(Giocatore g:giocatori){
+			voci_giocatori[i] = g.toString();
+			i++;
+		}
+		MyMenu menuGiocatori = new MyMenu("Rimozione Giocatori", voci_giocatori);
+		int scelta = menuGiocatori.scegli();
+		if(scelta>0){
+			players.remove(scelta-1);
+		}
 	}
 	
 	private static void proclamaVincitore(){
@@ -194,7 +239,7 @@ public class Monopoly {
 		}
 		
 		if(vincitori.size()==1){
-			System.out.println("Il vincitore è "+vincitori.get(0).getNome()+
+			System.out.println("Il vincitore e' "+vincitori.get(0).getNome()+
 					", con un capitale finale di "+vincitori.get(0).getCapitale()+" euro");
 		}else{
 			StringBuffer b = new StringBuffer();
@@ -216,7 +261,9 @@ public class Monopoly {
 	 *            i giocatori
 	 */
 	private static void stampaGiocatori(Vector<Giocatore> giocatori) {
-
+		if(giocatori.size()==0){
+			System.out.println("\nNon ci sono giocatori\n");
+		}
 		int i = 0;
 
 		for (Giocatore g : giocatori) {

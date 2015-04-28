@@ -2,6 +2,7 @@ package monopoly;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 /**
  * La classe che rappresenta il tabellone.
@@ -22,6 +23,10 @@ public class Tabellone {
 	public static final int T_LUSSO_I = 10;
 	public static final int T_PATRIMONIALE_I = 250;
 
+	public static final int VICOLO_CORTO = 1;
+	public static final int LARGO_COLOMBO = 24;
+	public static final int VIA_ACCADEMIA = 11;
+
 	/** Le caselle. */
 	private LinkedList<Casella> caselle;
 
@@ -40,6 +45,9 @@ public class Tabellone {
 	public Tabellone(DBManager db) throws SQLException {
 		this.db = db;
 		this.caselle = db.getCaselle();
+		for(Casella c:caselle){
+			c.setTabellone(this);
+		}
 	}
 
 	/**
@@ -58,7 +66,7 @@ public class Tabellone {
 //		sposta(g, newPos);
 //
 //	}
-	public void avanza(Giocatore g, int avanzamento) {
+	public void avanza(Giocatore g, int avanzamento) throws FallimentoException{
 
 		int posCorrente = g.getNumeroCasella();
 		int newPos = posCorrente + avanzamento;
@@ -82,7 +90,7 @@ public class Tabellone {
 	 * @param newCasella
 	 *            L'id della casella di destinazione 
 	 */
-	private void sposta(Giocatore g, int newCasella) {
+	public void sposta(Giocatore g, int newCasella)  throws FallimentoException{
 
 		boolean rimosso = false;
 		boolean inserito = false;
@@ -112,38 +120,26 @@ public class Tabellone {
 		}
 		*/
 		
-		g.setNumeroCasella(newCasella);
+		
 
 	}
-	public void spostaDiretto(Giocatore g, int newCasella) {	
-	boolean rimosso = false;
-	boolean inserito = false;
+	public void spostaDiretto(Giocatore g, int newCasella) throws FallimentoException{	
+		
+		
+		for (Casella casella : this.caselle) {
 	
-	for (Casella casella : this.caselle) {
 
-		if (casella.staziona(g)) {
-			casella.rimuovi(g);
-
+			if (casella.staziona(g)) {
+				casella.rimuovi(g);
+	
+			}
+			if(casella.getId() == newCasella){
+				casella.stop(g);
+			}
 		}
-	}
-
-	for (Casella casella : this.caselle) {
-
-		if (casella.getId() == newCasella) {
-			casella.inserisci(g);
-		
-		}
-		
-	}
-	g.setNumeroCasella(newCasella);
-
-	}
-		
-		
-		
-		
 	
-	
+	}
+
 	public void posiziona(Giocatore g, int pos) {
 
 		Iterator<Casella> iterator = this.caselle.iterator();
@@ -202,6 +198,14 @@ public class Tabellone {
 
 		}
 		return caselle.getFirst();
+	}
+	
+	public Vector<Proprieta> getProprieta(){
+		Vector<Proprieta> proprieta = new Vector<Proprieta>();
+		for(Casella c: this.caselle){
+			proprieta.add(c.getProprieta());
+		}
+		return proprieta;
 	}
 
 }
