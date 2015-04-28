@@ -87,7 +87,7 @@ public class Giocatore {
 		
 		Integer[] dadiEstratti=new Integer[2];
 
-		dadiEstratti = Util.lanciaDadi(2, 6);
+		dadiEstratti = Util.lanciaDadi(Partita.NUMERO_DADI,Partita.FACCE_DADI);
 		
 		this.ultimoLancio=dadiEstratti[0]+dadiEstratti[1];
 		return dadiEstratti;

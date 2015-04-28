@@ -2,6 +2,10 @@ package monopoly;
 
 public class FallimentoException extends Exception {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -820983946112762844L;
 	private Giocatore g;
 	private Giocatore rimborsando;
 	private int rimborso;

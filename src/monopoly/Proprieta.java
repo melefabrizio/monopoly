@@ -2,6 +2,7 @@ package monopoly;
 
 public class Proprieta {
 	
+	private static final double MOLTIPLICATORE_AFFITTO_PERCENTUALE = 0.1;
 	private Casella casella;
 	private Giocatore proprietario;
 	private int valore;
@@ -25,7 +26,7 @@ public class Proprieta {
 
 	public double calcolaAffitto(Giocatore g){
 		//return this.getValore()*Partita.PERCENTUALE_AFFITTO.intValue();
-		return this.getValore()*0.1;
+		return this.getValore()*MOLTIPLICATORE_AFFITTO_PERCENTUALE;
 
 	}
 	

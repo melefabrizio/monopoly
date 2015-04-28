@@ -9,6 +9,14 @@ import java.util.Vector;
  */
 public class Partita implements MovementListener, CarteListener{
 	
+	public static final int MOLTIPLICATORE_COLORE_POSSEDUTO = 2;
+
+	public static final int MOLTIPLICATORE_COLORE_NON_POSSEDUTO = 1;
+
+	public static final int NUMERO_DADI = 2;
+	
+	public static final int FACCE_DADI = 6;
+	
 	private static final int PROB_6_CAUSA = 250;
 
 	private static final int PROB_5_CREDITO_BANCA = 500;

@@ -18,8 +18,8 @@ public class Terreno extends Proprieta {
 	public double calcolaAffitto(Giocatore g){
 		return super.calcolaAffitto(g)*
 				((this.getProprietario().possiede(this.getCasella().getTabellone(), this.getColore()))?
-						2
-						:1);
+						Partita.MOLTIPLICATORE_COLORE_POSSEDUTO
+						:Partita.MOLTIPLICATORE_COLORE_NON_POSSEDUTO);
 	}
 	
 	

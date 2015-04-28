@@ -22,6 +22,10 @@ import java.util.*;
  */
 public class Monopoly {
 
+	protected static final int MAX_PLAYERS = 5;
+
+	protected static final int MIN_PLAYERS = 2;
+
 	/** La costante MSG_BENVENUTO. */
 	private final static String MSG_BENVENUTO = "BENVENUTO NEL GIOCO DEL MONOPOLY";
 
@@ -72,7 +76,7 @@ public class Monopoly {
 	private static void gioca(DBManager database)
 			throws ClassNotFoundException, SQLException {
 
-		if (players.size() < 2) {
+		if (players.size() < MIN_PLAYERS) {
 			System.out
 					.printf("Attualmente ci sono %d giocatori.\nCi devono essere almeno 2 giocatori per giocare!\n",
 							players.size());
@@ -118,7 +122,7 @@ public class Monopoly {
 	 */
 	private static void inserisciGiocatore() {
 
-		if (players.size() > 5) {
+		if (players.size() > MAX_PLAYERS) {
 			System.out.println("Raggiunto il numero massimo di giocatori\n");
 		
 		}else
